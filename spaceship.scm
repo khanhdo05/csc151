@@ -36,4 +36,4 @@
           stripe-2
           stripe-1))
 
-(rainbow-spaceship)
+rainbow-spaceship
