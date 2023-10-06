@@ -57,7 +57,7 @@ strokes
     (let* ([num (numerator d)]
            [den (denominator d)]
            [rep (expt 2 slashes)])
-      (repeat rep (note midi-note (dur num (* den rep)))))))
+      (mod percussion (repeat rep (note midi-note (dur num (* den rep))))))))
 
 (tremolo 3 40 wn)
 
@@ -69,7 +69,7 @@ strokes
 ;;; into four equally-spaced notes.
 (define roll 
   (lambda (midi-note dur) 
-    (tremolo 2 midi-note dur)))
+    (mod percussion (tremolo 2 midi-note dur))))
 
 (roll 40 wn)
 
@@ -82,8 +82,9 @@ strokes
 ;;; with an accent.
 (define flam 
   (lambda (midi-note d)   
-    (pickup (tremolo 1 midi-note d) 
-            (accent midi-note d))))
+    (mod percussion 
+      (pickup (tremolo 1 midi-note d) 
+              (accent midi-note d)))))
 
 (flam 40 qn)
 
@@ -97,7 +98,8 @@ strokes
     (let* ([grace-note (note midi-note sn)]
            [accent-note (accent midi-note en)]
            [reg-note (note midi-note en)])
-      (seq (pickup (repeat 2 grace-note) reg-note) accent-note))))
+      (mod percussion 
+        (seq (pickup (repeat 2 grace-note) reg-note) accent-note)))))
 
 (single-drag-tap 40)
 
@@ -105,13 +107,13 @@ strokes
 
 ;;; Drum kit:
 (define hi-hat-4 
-  (mod percussion (note 42 qn)))
+  (note 42 qn))
 
 (define snare-4 
-  (mod percussion (note 38 qn)))
+  (note 38 qn))
 
 (define bass-4 
-  (mod percussion (note 35 qn)))
+  (note 35 qn))
 
 "horizontal-simple-rock-beat"
 ;;; horizontal-simple-rock-beat: composition?
@@ -120,7 +122,7 @@ strokes
   (let ([top (repeat 4 hi-hat-4)]
         [mid (repeat 2 (seq (rest qn) snare-4))]
         [low (repeat 2 (seq bass-4 (rest qn)))])
-    (par top mid low)))
+    (mod percussion (par top mid low))))
 
 horizontal-simple-rock-beat
 
@@ -130,7 +132,7 @@ horizontal-simple-rock-beat
 (define vertical-simple-rock-beat 
   (let* ([pulse-1 (par hi-hat-4 bass-4)]
          [pulse-2 (par hi-hat-4 snare-4)])
-    (seq pulse-1 pulse-2 pulse-1 pulse-2)))
+    (mod percussion (seq pulse-1 pulse-2 pulse-1 pulse-2))))
 
 vertical-simple-rock-beat
 
@@ -149,18 +151,18 @@ vertical-simple-rock-beat
       (mod percussion (par top mid low)))))
 
 (horizontal-beat-machine 
-  (list (repeat 4 (note 42 qn)) 
-        (repeat 2 (seq (rest qn) (note 38 qn))) 
-        (repeat 2 (seq (note 35 qn) (rest qn)))))
+  (list (repeat 4 hi-hat-4) 
+        (repeat 2 (seq (rest qn) snare-4)) 
+        (repeat 2 (seq bass-4 (rest qn)))))
 
 ;; Helper Func:
 
 ;;; (1-note lst duration) -> composition?
 ;;;   lst: list?
 ;;;   duration: dur?
-;;; Takes in a list of durations and turn them into a list of drum sounds.
+;;; Takes in a list of durations and turn them into a list of notes.
 (define 1-note
-  (lambda (lst duration) (map (lambda (n) (mod percussion (note n duration))) lst)))
+  (lambda (lst duration) (map (lambda (n) (note n duration)) lst)))
 
 ;;; (pulse lst duration) -> composition?
 ;;;   lst: list?
@@ -182,19 +184,20 @@ vertical-simple-rock-beat
 ;;; each pulse specified as a dur value.
 (define vertical-beat-machine 
   (lambda (pulses duration) 
-      (apply seq (map (section pulse _ duration) pulses))))
+      (mod percussion 
+        (apply seq (map (section pulse _ duration) pulses)))))
 
 (vertical-beat-machine (list (list 42 35) (list 42 38) (list 42 35) (list 42 38)) qn)
 
 ;;; Tools kit:
 (define hi-hat-8 
-  (mod percussion (note 42 en)))
+  (note 42 en))
 
 (define snare-8 
-  (mod percussion (note 38 en)))
+  (note 38 en))
 
 (define bass-8 
-  (mod percussion (note 35 en)))
+  (note 35 en))
 
 ;;; (accent-note comp) -> composition?
 ;;;  comp: composition?
@@ -243,22 +246,8 @@ horizontally-elaborate-rock-beat
                                (list 42 38) 
                                (list 42 38 35)) 
                          en))
-vertically-elaborate-rock-beat
-"correct-vertically-elaborate-rock-beat-no-rest"
-;;; correct-vertically-elaborate-rock-beat: composition?
-;;; Vertically composes the elaborate rock beat with the accent and ghost note.
-(define correct-vertically-elaborate-rock-beat-no-rest
-  (let* ([pulse-1 (par hi-hat-8 ghost-snare-8 bass-8)]
-         [pulse-1-2 (repeat 2 pulse-1)]
-         [pulse-3 (par hi-hat-8 accent-snare-8)]
-         [pulse-4 (par hi-hat-8 ghost-snare-8 bass-8)]
-         [pulse-5 (par hi-hat-8 ghost-snare-8)]
-         [pulse-6 (par hi-hat-8 accent-snare-8)]
-         [pulse-7 (par hi-hat-8 ghost-snare-8)]
-         [pulse-8 (par hi-hat-8 ghost-snare-8 bass-8)])
-    (seq pulse-1-2 pulse-3 pulse-4 pulse-5 pulse-6 pulse-7 pulse-8)))
 
-correct-vertically-elaborate-rock-beat-no-rest
+vertically-elaborate-rock-beat
 
 (problem "Part 4: Exploring Grooves")
 
@@ -307,12 +296,14 @@ horizontal-swing-beat
 ;;; Vertically composes the swing beat.
 (define vertical-swing-beat
   (vertical-beat-machine (list (list 35 42) 
-                               null null
+                               null 
+                               null
                                (list 35 42 38) 
                                null
                                (list 42)
                                (list 35 42)
-                               null null
+                               null 
+                               null
                                (list 35 38 42)
                                null
                                (list 42))
@@ -354,7 +345,7 @@ horizontal-funk-beat
                                null
                                (list 42 35)
                                (list 38))
-                          sn))
+                         sn))
 
 vertical-funk-beat
 
@@ -425,7 +416,15 @@ horizontal-my-beat
 ;; and easier to use the vertical-beat-machine when I can easily read the sheet and divide
 ;; the beats up equally. I chose to implement horizontal-beat-machine even though it does not 
 ;; look as clean as vertical, I can easily manipulate notes, instead of having to only able to
-;; pass in midi value number.
+;; pass in midi value number. 
+
+;; I could not vertically composes the garba-beat because:
+;; + The snare drum on the third beat is broken up into eight thirty-second notes, which will be 
+;; hard to implement using vertical machine because our vertical machine operates on pulses of a 
+;; fixed duration.
+;; + Same problem for the triplet hi-hat, it is hard to compose such variations using our vertical
+;; machine.
+;; + Using horizontal beat machine is easier because we can map out each note in time sequence.
 
 ;; b. Look back at the Roland TR-909 emulator linked in part 3. Additionally, look at this drum
 ;; machine implementation by @berkcebi. Which way do these drum machines that are emulators of 
