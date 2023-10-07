@@ -28,4 +28,10 @@
 (test-case "v is a character, lst of random" equal? 
                                              (list (list #\? "hello") (list #\? #\V) (list #\? 9))
                                              (lambda () (all-list2 #\? (list "hello" #\V 9))))
+(test-case "lst has 2 elements" equal? 
+                                (list (list "a" 2) (list "a" 4))
+                                (lambda () (all-list2 "a" (list 2 4))))
+(test-case "lst has 1 element" equal?
+                               (list (list "b" 1))
+                               (lambda () (all-list2 "b" (list 1))))
 (test-case "base case" equal? null (lambda () (all-list2 "q" null)))
