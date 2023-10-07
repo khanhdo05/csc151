@@ -237,9 +237,15 @@
 ;; > (remove-all 0 null)
 ;; null
 
-;; TODO: design, implement, document, and test your implementation
-;; here!
+;;; (remove-all v lst) -> list?
+;;;   v: any?
+;;;   lst: list?
+;;; Takes a value v and list lst and returns lst but with all occurrences of v removed.
 
+
+(test-case "remove number" equal? (list 1 8 7 9 6 3) (lambda () (remove-all 0 (list 1 0 0 8 7 0 9 6 3 0))))
+(test-case "remove any" equal? (list #\N #\@ #\9 9 2) (lambda () (remove-all #\? (list #\? #\N #\@ #\? #\9 9 2 #\?))))
+(test-case "base case" equal? null (lambda () (remove-all 0 null)))
 ;; --------------------
 "Problem 6: Dedup"
 ;; --------------------
