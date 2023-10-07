@@ -270,6 +270,14 @@
 ;;; (dedup lst) -> list?
 ;;;   lst: list?
 ;;; Returns list lst but with all duplicate elements of the list removed. The "left-most" copies of each unique value in lst should be retained.
+(define dedup 
+  (lambda (lst)
+    (match lst
+      [null null]
+      [(cons a (cons b tail))
+       (if (equal? a b)
+           (cons a (dedup tail))
+           (cons a (cons b (dedup tail))))])))
 
-(test-case "correctly remove dups" equal? (list 1 3 8 7 4 0 2) (lambda () (dedup (list 1 3 1 8 7 4 7 8 0 0 1 2))))
+(test-case "correctly remove dups" equal? (list 1 #\? 3 8 7 4 0 2) (lambda () (dedup (list 1 #\? #\? 3 1 8 7 4 7 8 0 0 1 2))))
 (test-case "base case" equal? null (lambda () (dedup null)))
