@@ -12,6 +12,12 @@
 (problem "Part 1: Cartesian Product")
 
 "all-list2"
+; To generate all the lists of size two where the first element is v and the second element
+; is drawn from a list lst:
+
+; When lst is empty, returns empty list
+; When lst is non-empty, match list to pattern (cons head tail), then cons a list of a and the
+; head to recursive all-list2 v tail.
 
 ;;; (all-list2 v) -> list?
 ;;;   v: any?
