@@ -274,10 +274,16 @@
   (lambda (lst)
     (match lst
       [null null]
-      [(cons a (cons b tail))
-       (if (equal? a b)
-           (cons a (dedup tail))
-           (cons a (cons b (dedup tail))))])))
+      [(cons head tail) 
+       (cons head (dedup (remove-all head tail)))])))
 
 (test-case "correctly remove dups" equal? (list 1 #\? 3 8 7 4 0 2) (lambda () (dedup (list 1 #\? #\? 3 1 8 7 4 7 8 0 0 1 2))))
 (test-case "base case" equal? null (lambda () (dedup null)))
+
+;;; Another approach without using match
+; (define dedup 
+;   (lambda (lst)
+;     (if (null? lst)
+;         null
+;         (cons (car lst)
+;               (dedup (remove-all (car lst) (cdr lst)))))))
