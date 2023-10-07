@@ -287,3 +287,18 @@
 ;         null
 ;         (cons (car lst)
 ;               (dedup (remove-all (car lst) (cdr lst)))))))
+
+(problem "The Terminal")
+
+;;; (terminal n) -> integer?
+;;;   n: integer?, n >= 0
+;;; Performs repeated addition.
+(define terminal
+  (lambda (n)
+    (match n
+      [0 0]
+      [_ (+ n (terminal (- n 1)))])))
+
+"test"
+(test-case "terminal non-zero" = 55 (lambda () (terminal 10)))
+(test-case "terminal zero" = 0 (lambda () (terminal 0)))
