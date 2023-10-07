@@ -220,8 +220,8 @@
       [null null]
       [(cons head tail) 
        (if (< head 0)
-           (cons head tail)
-           (cons (range (+ 1 head) (telescope tail))))])))
+           (cons head (telescope tail))
+           (append (range (+ 1 head)) (telescope tail))))])))
 
 (test-case "correctly add number" equal? (list 0 1 2 3 0 1 2 3 4 5 -1 0 1 0 1 2) (lambda () (telescope (list 3 5 -1 1 2))))
 (test-case "base case" equal? null (lambda () (telescope null)))
