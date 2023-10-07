@@ -16,6 +16,12 @@
 ;;;   v: any?
 ;;; Takes a value v and a list of values and creates a list of all possible lists of size 2
 ;;; where the first element is v and the second element is a value from lst.
+(define all-list2
+  (lambda (v lst)
+    (match lst
+      [null null]
+      [(cons head tail) (cons (list v head) (all-list2 tail))])))
+
 
 (test-case "v is a string, lst of number" equal? 
                                           (list (list "q" 0) (list "q" 1) (list "q" 2) (list "q" 3) (list "q" 4))
