@@ -35,3 +35,10 @@
                                (list (list "b" 1))
                                (lambda () (all-list2 "b" (list 1))))
 (test-case "base case" equal? null (lambda () (all-list2 "q" null)))
+
+"cartesian-product"
+;;; (cartesian-product l1 l2) -> list?
+;;;   l1: list?
+;;;   l2: list?
+;;; Produces the Cartesian Product of the elements drawn from l1, l2, which is a list that contains
+;;; all the possible lists of size 2 (list x y), where x is from l1, y from l2.
