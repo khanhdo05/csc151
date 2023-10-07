@@ -20,13 +20,12 @@
   (lambda (v lst)
     (match lst
       [null null]
-      [(cons head tail) (cons (list v head) (all-list2 tail))])))
-
+      [(cons head tail) (cons (list v head) (all-list2 v tail))])))
 
 (test-case "v is a string, lst of number" equal? 
                                           (list (list "q" 0) (list "q" 1) (list "q" 2) (list "q" 3) (list "q" 4))
                                           (lambda () (all-list2 "q" (range 5))))
 (test-case "v is a character, lst of random" equal? 
-                                             (list (list (list #\? "hello") (list #\? #\V) (list #\? 9))) 
+                                             (list (list #\? "hello") (list #\? #\V) (list #\? 9))
                                              (lambda () (all-list2 #\? (list "hello" #\V 9))))
 (test-case "base case" equal? null (lambda () (all-list2 "q" null)))
