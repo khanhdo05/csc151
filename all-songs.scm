@@ -44,6 +44,13 @@
 (test-case "base case" equal? null (lambda () (all-list2 "q" null)))
 
 "cartesian-product"
+; To form all pairs of values whose first component is drawn from l1
+; and second component is drawn from l2:
+
+; When l1 is empty, returns empty list.
+; When l2 is non-empty, match pattern of l1 to (cons head tail), then append a list of 
+; head and an element from l2 using all-list2, to recursive cartesian-product tail l2.
+
 ;;; (cartesian-product l1 l2) -> list?
 ;;;   l1: list?
 ;;;   l2: list?
