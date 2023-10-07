@@ -267,5 +267,9 @@
 ;; > (dedup null)
 ;; null
 
-;; TODO: design, implement, document, and test your implementation
-;; here!
+;;; (dedup lst) -> list?
+;;;   lst: list?
+;;; Returns list lst but with all duplicate elements of the list removed. The "left-most" copies of each unique value in lst should be retained.
+
+(test-case "correctly remove dups" equal? (list 1 3 8 7 4 0 2) (lambda () (dedup (list 1 3 1 8 7 4 7 8 0 0 1 2))))
+(test-case "base case" equal? null (lambda () (dedup null)))
