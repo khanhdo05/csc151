@@ -241,7 +241,14 @@
 ;;;   v: any?
 ;;;   lst: list?
 ;;; Takes a value v and list lst and returns lst but with all occurrences of v removed.
-
+(define remove-all
+  (lambda (v lst)
+    (match lst
+      [null null]
+      [(cons head tail) 
+       (if (equal? v head)
+           (remove-all v tail)
+           (cons head (remove-all v tail)))])))
 
 (test-case "remove number" equal? (list 1 8 7 9 6 3) (lambda () (remove-all 0 (list 1 0 0 8 7 0 9 6 3 0))))
 (test-case "remove any" equal? (list #\N #\@ #\9 9 2) (lambda () (remove-all #\? (list #\? #\N #\@ #\? #\9 9 2 #\?))))
