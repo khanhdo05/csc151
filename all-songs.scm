@@ -122,4 +122,7 @@
                                      (lambda () (cons-all 0 (list (list 1 2)
                                                                   (list 3 4 5)
                                                                   (list 6 7)))))
+                                                                  (test-case "lsts has one null list" equal? 
+                                (list (list "a" #\!) (list "a"))
+                                (lambda () (cons-all "a" (list (list #\!) (list)))))
 (test-case "base case" equal? null (lambda () (cons-all 0 null)))
