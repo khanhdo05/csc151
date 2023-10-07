@@ -7,6 +7,7 @@
 
 (import lab)
 (import test)
+(import music)
 
 (problem "Part 1: Cartesian Product")
 
