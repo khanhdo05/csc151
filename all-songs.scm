@@ -80,3 +80,17 @@
 ;;; (all-two-note-songs notes) -> composition?
 ;;;   notes: list?
 ;;; Takes a list of notes of MIDI values and produces all the possible two-note songs. 
+"all-two-note-songs"
+;;; (all-two-note-songs notes) -> composition?
+;;;   notes: list?
+;;; Takes a list of notes of MIDI values and produces all the possible two-note songs. 
+(define all-two-note-songs
+  (lambda (notes)
+    (|> notes
+        (lambda (lst) (map (section note _ qn) lst))
+        (lambda (lst) (cartesian-product lst lst))
+        (lambda (lst) (map (section apply seq _) lst)))))
+
+"two-note-example"
+(define two-note-example 
+  (all-two-note-songs (list 60 69)))
