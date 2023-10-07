@@ -42,3 +42,10 @@
 ;;;   l2: list?
 ;;; Produces the Cartesian Product of the elements drawn from l1, l2, which is a list that contains
 ;;; all the possible lists of size 2 (list x y), where x is from l1, y from l2.
+
+(test-case "correctly append 2 lists" equal?
+                                      (list (list 0 "a") (list 0 "b")
+                                            (list 1 "a") (list 1 "b")
+                                            (list 2 "a") (list 2 "b")) 
+                                      (lambda () (cartesian-product (range 3) (list "a" "b"))))
+(test-case "base case" equal? null (lambda () (cartesian-product null)))
