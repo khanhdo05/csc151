@@ -13,8 +13,8 @@
 
 "accent"
 ;;; (accent midi-note dur) -> composition?
-;;;  midi-note: composition?
-;;;  dur: dur?
+;;;   midi-note: composition?
+;;;   dur: dur?
 ;;; Makes the given note played at louder volume.
 (define accent 
   (lambda (midi-note dur)
@@ -24,8 +24,8 @@
 
 "ghost"
 ;;; (ghost midi-note dur) -> composition?
-;;;  midi-note: composition?
-;;;  dur: dur?
+;;;   midi-note: composition?
+;;;   dur: dur?
 ;;; Makes the given note played at smaller volume.
 (define ghost 
   (lambda (midi-note dur)
@@ -34,7 +34,6 @@
 (ghost 40 wn)
 
 "strokes"
-;;; strokes: composition?
 ;;; Two bars of snare drum quarter notes. Each of these bars
 ;;; consists of four snare drum quarter notes: 
 ;;; an accented note, two ghost notes, and a regular note.
@@ -47,9 +46,9 @@ strokes
 
 "tremolo"
 ;;; (tremolo slashes midi-note d) -> composition?
-;;;  slashes: integer?
-;;;  midi-note: composition?
-;;;  d: dur?
+;;;   slashes: integer?
+;;;   midi-note: composition?
+;;;   d: dur?
 ;;; Returns a sequence of evenly spaced notes from midi-note 
 ;;; value that fit into duration dur.
 (define tremolo 
@@ -63,8 +62,8 @@ strokes
 
 "roll"
 ;;; (roll midi-note dur) -> composition?
-;;;  midi-note -> composition?
-;;;  dur -> dur?
+;;;   midi-note -> composition?
+;;;   dur -> dur?
 ;;; Creates a roll of the given duration dur by subdividing dur
 ;;; into four equally-spaced notes.
 (define roll 
@@ -75,8 +74,8 @@ strokes
 
 "flam"
 ;;; (flam midi-note d) -> composition?
-;;;  midi-note: composition?
-;;;  d: dur?
+;;;   midi-note: composition?
+;;;   d: dur?
 ;;; Creates a flam which is a grace note of half the duration 
 ;;; played before the given note. The given note is also played
 ;;; with an accent.
@@ -90,7 +89,7 @@ strokes
 
 "single-drag-tap"
 ;;; (single-drag-tap midi-note) -> composition?
-;;;  midi-note: composition?
+;;;   midi-note: composition?
 ;;; Creates a single drag tap, which is a pair of sixteenth-note grace notes, 
 ;;; followed by a regular eighth note, and then finally an accented eighth note.
 (define single-drag-tap 
@@ -106,18 +105,20 @@ strokes
 (problem "Part 2: An Example Groove")
 
 ;;; Drum kit:
+
+;;; A quarter note hi-hat
 (define hi-hat-4 
   (note 42 qn))
 
+;;; A quarter note snare
 (define snare-4 
   (note 38 qn))
 
+;;; A quarter note bass
 (define bass-4 
   (note 35 qn))
 
 "horizontal-simple-rock-beat"
-;;; horizontal-simple-rock-beat: composition?
-;;; Horizontally composes the simple rock beat.
 (define horizontal-simple-rock-beat
   (let ([top (repeat 4 hi-hat-4)]
         [mid (repeat 2 (seq (rest qn) snare-4))]
@@ -127,8 +128,6 @@ strokes
 horizontal-simple-rock-beat
 
 "vertical-simple-rock-beat"
-;;; vertical-simple-rock-beat: composition?
-;;; Vertically composes the simple rock beat.
 (define vertical-simple-rock-beat 
   (let* ([pulse-1 (par hi-hat-4 bass-4)]
          [pulse-2 (par hi-hat-4 snare-4)])
@@ -190,40 +189,42 @@ vertical-simple-rock-beat
 (vertical-beat-machine (list (list 42 35) (list 42 38) (list 42 35) (list 42 38)) qn)
 
 ;;; Tools kit:
+
+;;; An eighth note hi-hat
 (define hi-hat-8 
   (note 42 en))
 
+;;; An eighth note snare
 (define snare-8 
   (note 38 en))
 
+;;; An eighth note bass
 (define bass-8 
   (note 35 en))
 
 ;;; (accent-note comp) -> composition?
-;;;  comp: composition?
+;;;   comp: composition?
 ;;; Creates a new composition with an accent.
 (define accent-note 
   (lambda (comp)
     (mod (dynamics 96) comp)))
 
 ;;; (ghost-note comp) -> composition?
-;;;  comp: composition?
+;;;   comp: composition?
 ;;; Creates a new composition with ghost effect.
 (define ghost-note
   (lambda (comp)
     (mod (dynamics 32) comp)))
 
-;;; ghost-snare: composition?
+;;; Creates an eighth note snare with ghost effect
 (define ghost-snare-8
   (ghost-note snare-8))
 
-;;; accent-snare: composition?
+;;; Creates an eighth note snare with accent effect
 (define accent-snare-8
   (accent-note snare-8))
 
 "horizontally-elaborate-rock-beat"
-;;; horizontal-elaborate-rock-beat: composition?
-;;; Horizontally composes the elaborate rock beat.
 (define horizontally-elaborate-rock-beat
   (let* ([top (repeat 8 hi-hat-8)]
          [2-ghost-snare (repeat 2 ghost-snare-8)]
@@ -234,8 +235,6 @@ vertical-simple-rock-beat
 horizontally-elaborate-rock-beat
 
 "vertically-elaborate-rock-beat"
-;;; vertically-elaborate-rock-beat: composition?
-;;; Vertically composes the elaborate rock beat without the ghost and accent note.
 (define vertically-elaborate-rock-beat
   (vertical-beat-machine (list (list 42 38 35)
                                (list 42 38 35)
@@ -252,8 +251,6 @@ vertically-elaborate-rock-beat
 (problem "Part 4: Exploring Grooves")
 
 "horizontal-latin-beat"
-;;; horizontal-latin-beat: composition?
-;;; Horizontally composes the latin beat.
 (define horizontal-latin-beat 
     (let* ([side-stick-8 (note 37 en)]
            [top (repeat 8 hi-hat-8)]
@@ -264,8 +261,6 @@ vertically-elaborate-rock-beat
 horizontal-latin-beat
 
 "vertical-latin-beat"
-;;; vertical-latin-beat: composition?
-;;; Vertically composes the latin beat.
 (define vertical-latin-beat
   (vertical-beat-machine (list (list 42 35) 
                                (list 42)
@@ -280,8 +275,6 @@ horizontal-latin-beat
 vertical-latin-beat
 
 "horizontal-swing-beat"
-;;; horizontal-swing-beat: composition?
-;;; Horizontally composes the swing beat.
 (define horizontal-swing-beat
   (let* ([hi-hat-triplet (note 42 (dur 1 12))]
          [top (repeat 2 (seq hi-hat-4 hi-hat-triplet (rest (dur 1 12)) hi-hat-triplet))]
@@ -292,8 +285,6 @@ vertical-latin-beat
 horizontal-swing-beat
 
 "vertical-swing-beat"
-;;; vertical-swing-beat: composition?
-;;; Vertically composes the swing beat.
 (define vertical-swing-beat
   (vertical-beat-machine (list (list 35 42) 
                                null 
@@ -312,8 +303,6 @@ horizontal-swing-beat
 vertical-swing-beat
 
 "horizontal-funk-beat"
-;;; horizontal-funk-beat: composition?
-;;; Horizontally composes the funk beat.
 (define horizontal-funk-beat
   (let* ([top (repeat 8 (note 42 en))]
          [ghost-snare-16 (ghost-note (note 38 sn))]
@@ -326,8 +315,6 @@ vertical-swing-beat
 horizontal-funk-beat
 
 "vertical-funk-beat"
-;;; vertical-funk-beat: composition?
-;;; Vertically composes the funk beat without considering accent/ghost notes.
 (define vertical-funk-beat
   (vertical-beat-machine (list (list 42 35)
                                null
@@ -350,8 +337,6 @@ horizontal-funk-beat
 vertical-funk-beat
 
 "horizontal-garba-beat"
-;;; horizontal-garba-beat: composition?
-;;; Horizontally composes the garba beat.
 (define horizontal-garba-beat
   (let* ([snare-dur (section note 38 _)]
          [top (seq (rest (dur 3 4)) (repeat 3 (note 48 en)))]
@@ -368,8 +353,6 @@ vertical-funk-beat
 horizontal-garba-beat
 
 ;; Attempt vertical-garba-beat
-;;; vertical-garba-beat: composition?
-;;; Vertically composes the garba-beat.
 ; (define vertical-funk-beat
 ;   (vertical-beat-machine (list (list 35)
 ;                                null
@@ -390,8 +373,6 @@ horizontal-garba-beat
 ;                           sn))
 
 "horizontal-my-beat"
-;;; horizontal-my-beat: composition?
-;;; Something to tap-dance to.
 (define horizontal-my-beat
   (let* ([3-hi-hat-16 (repeat 3 (note 42 sn))]
          [2-ghost-snare (repeat 2 (ghost 38 qn))]
