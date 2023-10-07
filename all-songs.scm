@@ -43,7 +43,13 @@
 ;;;   l2: list?
 ;;; Produces the Cartesian Product of the elements drawn from l1, l2, which is a list that contains
 ;;; all the possible lists of size 2 (list x y), where x is from l1, y from l2.
-
+(define cartesian-product
+  (lambda (l1 l2)
+    (match l1
+      [null null]
+      [(cons head tail) 
+       (append (all-list2 head l2) (cartesian-product tail l2))])))
+       
 (test-case "correctly append 2 lists" equal?
                                       (list (list 0 "a") (list 0 "b")
                                             (list 1 "a") (list 1 "b")
