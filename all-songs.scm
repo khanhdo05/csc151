@@ -94,3 +94,32 @@
 "two-note-example"
 (define two-note-example 
   (all-two-note-songs (list 60 69)))
+
+(problem "Part 2: All Combinations")
+
+"cons-all"
+; To generate a list of lists of x added to the front of every list:
+
+; When lsts is empty, returns empty list.
+; When lsts is non-empty, add x to the front of the list and append all the list together.
+
+;;; (cons-all x lsts) -> list?
+;;;   x: any?
+;;;   lsts: list? 
+;;; Takes a single value x and a list of lists, lsts, and returns lsts
+;;; but with x added to the front of every list.
+(define cons-all
+  (lambda (x lsts)
+    (match lsts
+      [null null]
+      [(cons head tail)
+       (cons (cons x head) (cons-all x tail))])))
+
+(test-case "cons 0 to list of lists" equal?
+                                     (list (list 0 1 2)
+                                           (list 0 3 4 5)
+                                           (list 0 6 7))
+                                     (lambda () (cons-all 0 (list (list 1 2)
+                                                                  (list 3 4 5)
+                                                                  (list 6 7)))))
+(test-case "base case" equal? null (lambda () (cons-all 0 null)))
