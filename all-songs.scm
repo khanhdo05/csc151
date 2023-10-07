@@ -49,10 +49,16 @@
       [null null]
       [(cons head tail) 
        (append (all-list2 head l2) (cartesian-product tail l2))])))
-       
+
 (test-case "correctly append 2 lists" equal?
                                       (list (list 0 "a") (list 0 "b")
                                             (list 1 "a") (list 1 "b")
                                             (list 2 "a") (list 2 "b")) 
                                       (lambda () (cartesian-product (range 3) (list "a" "b"))))
-(test-case "base case" equal? null (lambda () (cartesian-product null)))
+(test-case "list 1 has 1 element" equal?
+                                  (list (list 1 0) (list 1 1) (list 1 2))
+                                  (lambda () (cartesian-product (list 1) (range 3))))
+(test-case "list 2 is null case" equal?
+                                 null ; because all-list2 will match list 2 with null
+                                 (lambda () (cartesian-product (range 3) null)))
+(test-case "base case" equal? null (lambda () (cartesian-product null null)))
