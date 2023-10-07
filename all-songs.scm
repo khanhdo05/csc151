@@ -126,3 +126,16 @@
                                 (list (list "a" #\!) (list "a"))
                                 (lambda () (cons-all "a" (list (list #\!) (list)))))
 (test-case "base case" equal? null (lambda () (cons-all 0 null)))
+
+"combinations"
+; To generate a list of lists of x added to the front of every list:
+
+; When lsts is empty, returns empty list.
+; When lsts is non-empty, 
+
+;;; (combinations lsts) -> list?
+;;;   lsts: list?, list of lists
+;;; returns a list of lists. For each list returned in the result,
+;;; the ith element of the list is drawn from ith list of lsts. The 
+;;; result, therefore, contains all the ways we can combine the elements
+;;; of the lists found in lsts.
