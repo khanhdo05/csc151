@@ -75,3 +75,8 @@
                                  null ; because all-list2 will match list 2 with null
                                  (lambda () (cartesian-product (range 3) null)))
 (test-case "base case" equal? null (lambda () (cartesian-product null null)))
+
+"all-two-note-songs"
+;;; (all-two-note-songs notes) -> composition?
+;;;   notes: list?
+;;; Takes a list of notes of MIDI values and produces all the possible two-note songs. 
