@@ -149,4 +149,4 @@
                                (lambda () (combinations (list (list 1 2)
                                                               (list 3 4 5)
                                                               (list 6 7)))))
-(test-case "base case" equal? null (lambda () (combinations null)))
+(test-case "base case" equal? (list null) (lambda () (combinations null)))
