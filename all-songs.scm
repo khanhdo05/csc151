@@ -135,7 +135,18 @@
 
 ;;; (combinations lsts) -> list?
 ;;;   lsts: list?, list of lists
-;;; returns a list of lists. For each list returned in the result,
-;;; the ith element of the list is drawn from ith list of lsts. The 
-;;; result, therefore, contains all the ways we can combine the elements
-;;; of the lists found in lsts.
+;;; Returns a list of lists. For each list returned in the result the i-th element of the list 
+;;; is drawn from i-th list of lsts. 
+
+(test-case "list of many case" equal?
+                               (list 
+                                  (list 1 3 6) (list 1 3 7)
+                                  (list 1 4 6) (list 1 4 7)
+                                  (list 1 5 6) (list 1 5 7)
+                                  (list 2 3 6) (list 2 3 7)
+                                  (list 2 4 6) (list 2 4 7)
+                                  (list 2 5 6) (list 2 5 7))
+                               (lambda () (combinations (list (list 1 2)
+                                                              (list 3 4 5)
+                                                              (list 6 7)))))
+(test-case "base case" equal? null (lambda () (combinations null)))
