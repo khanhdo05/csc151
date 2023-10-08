@@ -150,3 +150,10 @@
                                                               (list 3 4 5)
                                                               (list 6 7)))))
 (test-case "base case" equal? (list null) (lambda () (combinations null)))
+(test-case "list of 2 lists" equal?
+                            (list (list 0 "a") (list 0 "b")
+                                  (list 1 "a") (list 1 "b")
+                                  (list 2 "a") (list 2 "b"))
+                            (lambda () (combinations (list (range 3)
+                                                           (list "a" "b")))))
+(test-case "list of null" equal? null (lambda () (combinations (list null null))))
