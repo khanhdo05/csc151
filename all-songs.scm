@@ -182,10 +182,17 @@
   (lambda (n notes)
     (|> notes
         (lambda (lst) (map (section note _ qn) lst))
-        (lambda (lst) (make-list (- n 1) lst))
+        (lambda (lst) (make-list n lst))
         (lambda (lst) (combinations lst))
         (lambda (lst) (map (section apply seq _) lst)))))
 
 "five-note-example"
 (define five-note-example (all-songs 5 (list 60 58 65)))
 five-note-example
+
+(problem "Part 3: Reflection")
+
+; Do you think music should still be valued in light of modern-day computation’s ability 
+; to “do it all?” If so, what do you personally value about music in spite of this assignment? 
+; If not, why do you feel that music has lost its value?
+
