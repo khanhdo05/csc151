@@ -192,7 +192,28 @@ five-note-example
 
 (problem "Part 3: Reflection")
 
+; Prompt:
+
 ; Do you think music should still be valued in light of modern-day computation’s ability 
 ; to “do it all?” If so, what do you personally value about music in spite of this assignment? 
 ; If not, why do you feel that music has lost its value?
 
+; Answer: (242 words)
+
+; I do believe that music should still be valued in light of modern-day computation's ability to
+; do it all. While technology can replicate patterns, melodies, even create new ones from samples,
+; it cannot truly produce the rich human experiences behind music. What I mean is that, beyong mere 
+; rhythm and lyrics, good music conveys the artists' stories, emotions, cultural backgrounds, beliefs, 
+; basically really personal and original aspects of human life. This depth of experience and meaning, 
+; I think, is not yet in the grasp of algorithms, AI, and technology in general.
+
+; Of course, I have heard and loved AI-generated music, and have many times been fooled by AI-generated
+; singers' voices, but my current inclination is towards human-made music. By saying human-made, I mean
+; when the human contribution is larger than that of technology. Technology's role in enhancing the music
+; industry is undeniable becaus without it, we would not have, for example, EDM. So, I think we should 
+; think of this situation as trying not to let technology overshadow or take over, but to leverage it to 
+; artists' advantages, complementing their artistic creativity, creating modern music.
+
+; This assignment underlines that while technology can "do it all" (or rather, "do a lot"), it does not 
+; completely replace human. Technology is a powerful tool that artists can use to break new grounds, more 
+; efficiently convey their creativity and stylistic expectations.
