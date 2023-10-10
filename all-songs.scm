@@ -128,15 +128,30 @@
 (test-case "base case" equal? null (lambda () (cons-all 0 null)))
 
 "combinations"
-; To generate a list of lists of x added to the front of every list:
+; To generate a list of lists of x added to the front of every list and that x comes from another
+; list of list:
 
-; When lsts is empty, returns empty list.
-; When lsts is non-empty, 
+; When lsts is empty, returns a list of empty list.
+; When lsts has many lists of null, return null.
+; When lsts is non-empty, match pattern (cons head tail), check if head and tail is null then return 
+; null, if only head is null, call (combinations tail), else iterate over every item in the first list
+; and prepend it to every combination of the remaining lists
 
 ;;; (combinations lsts) -> list?
 ;;;   lsts: list?, list of lists
 ;;; Returns a list of lists. For each list returned in the result the i-th element of the list 
 ;;; is drawn from i-th list of lsts. 
+(define combinations 
+  (lambda (lsts)
+    (let ([append-map (lambda (func lst) (apply append (map func lst)))])
+      (match lsts
+        [null (list null)] 
+        [(cons head tail) 
+         (cond
+           [(and (null? head) (null? tail)) null]
+           [(null? head) (combinations tail)]
+           [else 
+             (append-map (section cons-all _ (combinations tail)) head)])]))))
 
 (test-case "list of many case" equal?
                                (list 
@@ -157,3 +172,4 @@
                             (lambda () (combinations (list (range 3)
                                                            (list "a" "b")))))
 (test-case "list of null" equal? null (lambda () (combinations (list null null))))
+
