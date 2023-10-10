@@ -173,3 +173,18 @@
                                                            (list "a" "b")))))
 (test-case "list of null" equal? null (lambda () (combinations (list null null))))
 
+"all-songs"
+;;; (all-songs n notes) -> composition?
+;;;   n: integer?, non-negative
+;;;   notes: list?
+;;; Produces all the possible songs of n notes drawn from the list of provided notes.
+(define all-songs 
+  (lambda (n notes)
+    (|> notes
+        (lambda (lst) (map (section note _ qn) lst))
+        (lambda (lst) (make-list n lst))
+        (lambda (lst) (combinations lst lst))
+        (lambda (lst) (map (section apply seq _) lst)))))
+
+"five-note-example"
+(define five-note-example (all-songs 5 (list 60 58 65)))
