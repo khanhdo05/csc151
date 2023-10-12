@@ -289,3 +289,54 @@
            (list #t #t #t #t) 
            (lambda () (list-filter (lambda (boole) (equal? #t boole))
                                    (list #t #t #f #f #f #t #f #t))))
+
+;; -------------------
+"Problem 3: Reduction"
+;; -------------------
+
+;; At this point, there's one function left to write from the big three---fold!
+;; Let's, again, follow the same procedure: write some specific functions and
+;; generalize from there. Here are two examples:
+
+;; (sum-with-init result lst) -> number?
+;;   result: number?
+;;   lst: list? of numbers
+;; Returns the sum of the numbers in lst, starting with result as the initial
+;; value.
+(define sum-with-init
+  (lambda (result lst)
+    (match lst
+      [null result]
+      [(cons head tail)
+       (sum-with-init (+ head result) tail)])))
+
+(test-case "sum-with-init empty"
+           equal?
+           22
+           (lambda () (sum-with-init 22 null)))
+
+(test-case "sum-with-init non-empty?"
+           equal?
+           50
+           (lambda () (sum-with-init 11 (list 27 2 10))))
+
+;; (cons-onto-backwards result lst) -> list?
+;;   result: lst?
+;;   lst: list?
+;; Returns the result of consing lst onto the front of result backwards.
+(define cons-onto-backwards
+  (lambda (result lst)
+    (match lst
+      [null result]
+      [(cons head tail)
+       (cons-onto-backwards (cons head result) tail)])))
+
+(test-case "cons-onto-backwards empty"
+           equal?
+           (list 1 2 3)
+           (lambda () (cons-onto-backwards (list 1 2 3) null)))
+
+(test-case "cons-onto-backwards non-empty?"
+           equal?
+           (list 7 6 5 4 1 2 3)
+           (lambda () (cons-onto-backwards (list 1 2 3) (list 4 5 6 7))))
