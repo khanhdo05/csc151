@@ -57,7 +57,7 @@
            equal?
            (list #t #f #f #t #t #f)
            (lambda () (flip (list #f #t #t #f #f #t))))
-           
+
 ;; (Partner A drives!)
 ;;
 ;; Follow the style of these two functions to write a similar, third function
@@ -83,3 +83,67 @@
                                           (list 97 48 113 33) 
                                           (lambda () (chars->codepoints (list #\a #\0 #\q #\!))))
 (test-case "base case" equal? null (lambda () (chars->codepoints null)))
+
+;; (Partner B drives!)
+;;
+;; At this point, you should have noticed some redundancy between the
+;; three implementations of these functions. In the space below, note which
+;; parts of the three functions are shared and what is different between them.
+;;
+;; Shared: all three functions perform some action on the head of the list, then cons that
+;;         to the function of the tail.
+;;
+;; Different: the types of inputs they take, the actions they perform on the head, etc
+;;
+;; Before moving on, check your work with a member of the course staff!
+
+;; After you have correctly identified the essential difference between the
+;; three functions, let's do exactly what we learned at the beginning of this
+;; course: write a function that factors out these differences. It turns out
+;; that this function is precisely the map function over lists! Follow your
+;; nose and implement the map function over lists by factoring out the
+;; essential difference in the implementations above and making it a parameter
+;; to your function. You should arrive at precisely the same function signature
+;; as the Prelude map function. Give test cases for your implementation of map,
+;; list-map, that show how you can use list-map to implement the behavior of
+;; the three specialized functions above.
+
+;; (list-map func lst) -> list?
+;;  func : procedure?, a function
+;;  lst : list?
+;; Returns a list with func applied to all elements of lst.
+(define list-map
+  (lambda (func lst)
+    (match lst
+      [null null]
+      [(cons head tail) (cons (func head) (list-map func tail))])))
+
+(test-case "map double empty"
+           equal?
+           null
+           (lambda () (list-map (lambda (n) (* n 2)) null)))
+
+(test-case "map double non-empty"
+           equal?
+           (list 0 2 4 6 8)
+           (lambda () (list-map (lambda (n) (* n 2)) (range 5))))
+
+(test-case "map flip empty"
+           equal?
+           null
+           (lambda () (list-map (lambda (boole) (not boole)) null)))
+
+(test-case "map flip non-empty"
+           equal?
+           (list #t #f #f #t #t #f)
+           (lambda () (list-map (lambda (boole) (not boole)) (list #f #t #t #f #f #t))))
+
+(test-case "map codepoints empty" 
+           equal? 
+           null 
+           (lambda () (list-map (lambda (cha) (char->integer cha)) null)))
+
+(test-case "map codepoints non-empty" 
+           equal? 
+           (list 97 48 113 33) 
+           (lambda () (list-map (lambda (cha) (char->integer cha)) (list #\a #\0 #\q #\!))))
