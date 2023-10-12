@@ -147,3 +147,54 @@
            equal? 
            (list 97 48 113 33) 
            (lambda () (list-map (lambda (cha) (char->integer cha)) (list #\a #\0 #\q #\!))))
+
+;; ------------------
+"Problem 2: Deletion"
+;; ------------------
+
+;; Let's play the same game of observing similarities between functions and
+;; factoring out the differences to create a new function! Consider these
+;; specialized functions:
+
+;;; (dropzeroes lst) -> list?
+;;;   lst: list? of numbers
+;;; Returns lst but with every zero removed from lst.
+(define dropzeroes
+  (lambda (lst)
+    (match lst
+      [null null]
+      [(cons head tail)
+       (if (zero? head) (dropzeroes tail)
+                        (cons head (dropzeroes tail)))])))
+
+(test-case "dropzeroes empty"
+           equal?
+           null
+           (lambda () (dropzeroes null)))
+
+(test-case "dropzeroes non-empty"
+           equal?
+           (list 1 1 2 1)
+           (lambda () (dropzeroes (list 1 0 0 1 2 0 1 0))))
+
+;;; (length-less-than-five lst) -> list?
+;;;   lst: list? of strings
+;;; Returns lst but with every element with length greater than or equal to
+;;; five removed from the output.
+(define length-less-than-five
+  (lambda (lst)
+    (match lst
+      [null null]
+      [(cons head tail)
+       (if (>= (string-length head) 5) (length-less-than-five tail)
+                                       (cons head (length-less-than-five tail)))])))
+
+(test-case "length-less-than-five empty"
+           equal?
+           null
+           (lambda () (length-less-than-five null)))
+
+(test-case "length-less-than-five non-empty"
+           equal?
+           (list "abba" "doo!")
+           (lambda () (length-less-than-five (list "abba" "yabba" "dabba" "doo!"))))
