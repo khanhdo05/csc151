@@ -433,3 +433,32 @@
            equal?
            "gihdefabc"
            (lambda () (list-foldl (lambda (x y) (string-append y x)) "abc" (list "def" "h" "gi"))))
+
+;; ----------------------------
+"Problem 4: Really, Reductions"
+;; ----------------------------
+
+;; (Partner A drives!)
+;;
+;; In our discussion of list transformations, rather than foldl, we introduced
+;; reduce first! Reduce is similar to foldl but instead of providing an initial
+;; value, we use the first element of the list as the initial value.
+;;
+;; Implement list-reduce below in terms of list-foldl. It should be
+;; functionality identical to reduce when you are done!
+
+;; TODO: add documentation!
+(define list-reduce
+  (lambda (f l)
+    null))
+
+;; TODO: add tests here!
+
+;; With implementations of list-foldl and list-reduce in hand, you should
+;; be in a better position to now talk about when you would use foldl versus
+;; reduce. Based on your implementation, give 2 reasons when you would choose
+;; foldl versus reduce:
+;;
+;; <TODO: write down your three reasons here>
+;; 1. ...
+;; 2. ...
