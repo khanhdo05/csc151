@@ -57,3 +57,29 @@
            equal?
            (list #t #f #f #t #t #f)
            (lambda () (flip (list #f #t #t #f #f #t))))
+           
+;; (Partner A drives!)
+;;
+;; Follow the style of these two functions to write a similar, third function
+;; called digits->nums. (chars->codepoints lst) takes a list of characters as
+;; input and returns a list where each character has been turned into its
+;; integer codepoint value. For example:
+;;
+;; (chars->codepoints (list #\a #\0 #\; #\q #\!))
+;; > (list 97 48 59 113 33)
+;; (chars->codepoints null)
+;; > null
+
+;;; (chars->codepoints lst) -> list?
+;;;   lst: list?
+;;; Returns a list of codepoints for the characters
+(define chars->codepoints
+  (lambda (lst)
+    (match lst
+      [null null]
+      [(cons head tail) (cons (char->integer head) (chars->codepoints tail))])))
+
+(test-case "correctly returns codepoints" equal? 
+                                          (list 97 48 113 33) 
+                                          (lambda () (chars->codepoints (list #\a #\0 #\q #\!))))
+(test-case "base case" equal? null (lambda () (chars->codepoints null)))
