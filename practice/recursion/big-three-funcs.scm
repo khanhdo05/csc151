@@ -456,9 +456,12 @@
     (match l
       [null null]
       [(cons head tail)
-       (list-reduce (f head) tail)])))
+       (list-foldl f head tail)])))
 
-;; TODO: add tests here!
+(test-case "list-reduce sum-with-init empty"
+           equal?
+           null
+           (lambda () (list-reduce (lambda (x y) (+ x y)) null)))
 
 ;; With implementations of list-foldl and list-reduce in hand, you should
 ;; be in a better position to now talk about when you would use foldl versus
