@@ -198,3 +198,94 @@
            equal?
            (list "abba" "doo!")
            (lambda () (length-less-than-five (list "abba" "yabba" "dabba" "doo!"))))
+
+;; (Partner B drives!)
+;;
+;; Follow the style of these two functions to write a similar, third function
+;; called dropfalses. (dropfalses lst) takes a list of booleans as input and
+;; and returns a lst but with all the #f values removed from the result. For
+;; example:
+;;
+;; (dropfalses (list #t #t #f #f #f #t #f #t))
+;; > (list #t #t #t #t)
+;; (dropfalses null)
+;; > null
+
+;;; (dropfalses lst) -> list?
+;;;   lst: list?, list of boolean values.
+;;; Returns lst with every #f removed.
+(define dropfalses
+  (lambda (lst)
+    (match lst
+      [null null]
+      [(cons head tail)
+       (if (equal? head #t) 
+           (cons head (dropfalses tail)) 
+           (dropfalses tail))])))
+
+(test-case "dropfalses empty" equal? null (lambda () (dropfalses null)))
+
+(test-case "dropfalses non-empty" 
+           equal? 
+           (list #t #t #t #t) 
+           (lambda () (dropfalses (list #t #t #f #f #f #t #f #t))))
+
+;; (Partner A drives!)
+;;
+;; Like the previous problem, first identify what is shared and different
+;; between these three functions:
+;;
+;; Shared: you compare a predicate to the head, drop it if it does not match the predicate
+;;         or keep it if it does, and cons that to the function of the tail.
+;;
+;; Different: the types of inputs they take, the predicate they compare to the head, etc
+;;
+;; Check your work with a member of the course staff!
+;;
+;; Once you know the essential difference between these three functions, create
+;; the list-filter function that factors out this redundancy. list-filter
+;; should behave indentically to the filter function when you are done!
+
+;;; (list-filter pred lst) -> list?
+;;;  pred : procedure?, a predicate
+;;;  lst : list?
+;;; Returns lst only with elements matching the predicate.
+(define list-filter
+  (lambda (pred lst)
+    (match lst
+      [null null]
+      [(cons head tail) (if (pred head)
+                            (cons head (list-filter pred tail))
+                            (list-filter pred tail))])))
+
+(test-case "filter dropzeroes empty"
+           equal?
+           null
+           (lambda () (list-filter (lambda (n) (not (zero? n))) null)))
+
+(test-case "filter dropzeroes non-empty"
+           equal?
+           (list 1 1 2 1)
+           (lambda () (list-filter (lambda (n) (not (zero? n))) (list 1 0 0 1 2 0 1 0))))
+
+(test-case "filter length-less-than-five empty"
+           equal?
+           null
+           (lambda () (list-filter (lambda (str) (< (string-length str) 5)) null)))
+
+(test-case "filter length-less-than-five non-empty"
+           equal?
+           (list "abba" "doo!")
+           (lambda () (list-filter (lambda (str) (< (string-length str) 5))
+                                   (list "abba" "yabba" "dabba" "doo!"))))
+
+(test-case "filter dropfalses empty" 
+           equal? 
+           null 
+           (lambda () (list-filter (lambda (boole) (equal? #t boole)) null)))
+
+(test-case "filter dropfalses non-empty" 
+           equal? 
+           (list #t #t #t #t) 
+           (lambda () (list-filter (lambda (boole) (equal? #t boole))
+                                   (list #t #t #f #f #f #t #f #t))))
