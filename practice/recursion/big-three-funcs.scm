@@ -340,3 +340,96 @@
            equal?
            (list 7 6 5 4 1 2 3)
            (lambda () (cons-onto-backwards (list 1 2 3) (list 4 5 6 7))))
+
+;; (Partner A drives!)
+;;
+;; Follow the style of these two functions to write a similar, third function
+;; called string-append-backwards. (string-append-backwards result lst) takes
+;; an initial string value, and a list of strings as input and returns the char->integer
+;; strings of the list appended onto the front of the initial string in
+;; backwards order. Note that the order of the individual characters in each
+;; string is preserved, but they are appended in backwards order. For example:
+;;
+;; (string-append-backwards "abc" (list "def" "h" "gi"))
+;; > "gihdefabc"
+;; (string-append-backwards "abc" null)
+;; > "abc"
+
+;;; (string-append-backwards result lst) -> string?
+;;;   result: string?
+;;;   lst: list?, a list of strings
+;;; Returns a string of the reversed list of strings with string result appended to the end.
+(define string-append-backwards
+  (lambda (result lst)
+    (match lst
+      [null result]
+      [(cons head tail)
+       (string-append-backwards (string-append head result) tail)])))
+
+(test-case "string-append-backwards empty" 
+           equal? 
+           "abc" 
+           (lambda () (string-append-backwards "abc" null)))
+
+(test-case "string-append-backwards non-empty" 
+           equal?
+           "gihdefabc"
+           (lambda () (string-append-backwards "abc" (list "def" "h" "gi"))))
+
+;; (Partner B drives!)
+;;
+;; Like the previous problems, first identify what is shared and different
+;; between these three functions:
+;;
+;; Shared: Add/append/wtv head to the initial value, and then add that to the recursion func of tail.
+;;
+;; Different: the types of inputs they take, the function they perform on the head, etc
+;;
+;; Again, check your work with a member of the course staff!
+;;
+;; Once you know the essential difference between these three functions, create
+;; the list-foldl function that factors out this redundancy. list-foldl
+;; should behave indentically to the foldl function when you are done!
+
+;;; (list-foldl func v lst) -> any
+;;;   func: procedure?, a function that takes two inputs
+;;;   v: any
+;;;   lst: list?
+;;; Returns the result of accumulating the result of applying f to each element of l,
+;;; starting with initial value v. 
+(define list-foldl
+  (lambda (func v lst)
+    (match lst
+      [null v]
+      [(cons head tail)
+       (list-foldl func (func v head) tail)])))
+
+(test-case "fold sum-with-init empty"
+           equal?
+           22
+           (lambda () (list-foldl (lambda (x y) (+ x y)) 22 null)))
+
+(test-case "fold sum-with-init non-empty?"
+           equal?
+           50
+           (lambda () (list-foldl (lambda (x y) (+ x y)) 11 (list 27 2 10))))
+
+(test-case "fold cons-onto-backwards empty"
+           equal?
+           (list 1 2 3)
+           (lambda () (list-foldl (lambda (x y) (cons y x)) (list 1 2 3) null)))
+
+(test-case "fold cons-onto-backwards non-empty?"
+           equal?
+           (list 7 6 5 4 1 2 3)
+           (lambda () (list-foldl (lambda (x y) (cons y x)) (list 1 2 3) (list 4 5 6 7))))
+
+(test-case "fold string-append-backwards empty" 
+           equal? 
+           "abc" 
+           (lambda () (list-foldl (lambda (x y) (string-append y x)) "abc" null)))
+
+(test-case "fold string-append-backwards non-empty" 
+           equal?
+           "gihdefabc"
+           (lambda () (list-foldl (lambda (x y) (string-append y x)) "abc" (list "def" "h" "gi"))))
