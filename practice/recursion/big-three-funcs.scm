@@ -468,6 +468,26 @@
            50
            (lambda () (list-reduce (lambda (x y) (+ x y)) (list 11 27 2 10))))
 
+(test-case "list-reduce cons-onto-backwards empty"
+           equal?
+           (list 1 2 3)
+           (lambda () (list-reduce (lambda (x y) (cons y x)) (list 1 2 3))))
+
+(test-case "list-reduce cons-onto-backwards non-empty?"
+           equal?
+           (list 7 6 5 4 1 2 3)
+           (lambda () (list-reduce (lambda (x y) (cons y x)) (list (list 1 2 3) (list 4 5 6 7)))))
+
+(test-case "list-reduce string-append-backwards empty" 
+           equal? 
+           "abc" 
+           (lambda () (list-reduce (lambda (x y) (string-append y x)) (list "abc" null))))
+
+(test-case "list-reduce string-append-backwards non-empty" 
+           equal?
+           "gihdefabc"
+           (lambda () (list-reduce (lambda (x y) (string-append y x)) (list "abc" "def" "h" "gi"))))
+
 ;; With implementations of list-foldl and list-reduce in hand, you should
 ;; be in a better position to now talk about when you would use foldl versus
 ;; reduce. Based on your implementation, give 2 reasons when you would choose
