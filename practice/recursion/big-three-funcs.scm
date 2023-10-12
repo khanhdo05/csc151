@@ -14,3 +14,46 @@
 (import lab)
 (import test)
 ;; -------------------------
+"Problem 1: Transformations"
+;; -------------------------
+
+;; Consider the following pair of recursive functions:
+
+;;; (double lst) -> list?
+;;;   lst: list? of numbers
+;;; Returns lst but with every element of lst doubled.
+(define double
+  (lambda (lst)
+    (match lst
+      [null null]
+      [(cons head tail) (cons (* 2 head) (double tail))])))
+
+(test-case "double empty"
+           equal?
+           null
+           (lambda () (double null)))
+
+(test-case "double non-empty"
+           equal?
+           (list 0 2 4 6 8)
+           (lambda () (double (range 5))))
+
+;;; (flip lst) -> list?
+;;;   lst: list? of booleans
+;;; Returns lst but with every element of lst flipped, i.e., #t becomes #f
+;;; and #f becomes true
+(define flip
+  (lambda (lst)
+    (match lst
+      [null null]
+      [(cons head tail) (cons (not head) (flip tail))])))
+
+(test-case "flip empty"
+           equal?
+           null
+           (lambda () (flip null)))
+
+(test-case "flip non-empty"
+           equal?
+           (list #t #f #f #t #t #f)
+           (lambda () (flip (list #f #t #t #f #f #t))))
