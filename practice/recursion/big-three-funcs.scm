@@ -485,5 +485,5 @@
 ;; foldl versus reduce:
 ;;
 ;; <TODO: write down your three reasons here>
-;; 1. ...
-;; 2. ...
+;; 1. when I need to manipulate the given list in a more complex way
+;; 2. when I have a specific value I wanna use as an initial value that
