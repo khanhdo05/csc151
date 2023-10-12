@@ -447,10 +447,16 @@
 ;; Implement list-reduce below in terms of list-foldl. It should be
 ;; functionality identical to reduce when you are done!
 
-;; TODO: add documentation!
+;;; (list-reduce f l) -> any
+;;;   f: procedure?, a function
+;;;   l: list?
+;;; Applying f to each element of l starting with the first element of l.
 (define list-reduce
   (lambda (f l)
-    null))
+    (match l
+      [null null]
+      [(cons head tail)
+       (list-reduce (f head) tail)])))
 
 ;; TODO: add tests here!
 
