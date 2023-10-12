@@ -463,6 +463,11 @@
            null
            (lambda () (list-reduce (lambda (x y) (+ x y)) null)))
 
+(test-case "list-reduce sum-with-init non-empty?"
+           equal?
+           50
+           (lambda () (list-reduce (lambda (x y) (+ x y)) (list 11 27 2 10))))
+
 ;; With implementations of list-foldl and list-reduce in hand, you should
 ;; be in a better position to now talk about when you would use foldl versus
 ;; reduce. Based on your implementation, give 2 reasons when you would choose
