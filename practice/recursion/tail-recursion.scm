@@ -5,3 +5,28 @@
 ;; Acknowledgements: N/A
 
 (import test)
+; +-------------------------+----------------------------------------
+; | Exercise 1: Preparation |
+; +-------------------------+
+
+; In today's reading, you wrote a tail-recursive implementation of
+; `append`. To begin the lab, review your code with your partner and
+; agree upon a solution. In this lab, we'll rewrite several functions
+; to be tail-recursive and test them in a standardized way. In
+; particular, we shouldn't change the external behavior of a function,
+; i.e., what output it produces for a given input. So we can use our
+; non-recursive function to test our tail-recursion function!
+;
+; Below is the standard implementation of append, yet again:
+
+(define append-l
+  (lambda (l1 l2)
+    (match l1
+      [null l2]
+      [(cons head tail) (cons head (append tail l2))])))
+
+; Fill in the definition of (a) your tail-recursive helper function
+; and (b) your wrapper function for append below. (Hint: you should
+; have found that so-far is backwards if you just follow the pattern
+; from the reading. If you did not already do so, think about how
+; you can use the reverse function to fix the issue.)
