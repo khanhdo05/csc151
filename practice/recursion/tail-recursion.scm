@@ -81,3 +81,20 @@
 ; --> (append (reverse (3 2 1)) (4 5 6))
 ; --> (append (list 1 2 3) (4 5 6))
 ; --> (list 1 2 3 4 5 6)
+
+; In a sentence or two below, describe how you know append-tr is tail
+; recursive from your trace.
+;
+; It cons head to so-far to make a new so-far.
+
+; +---------------------------------------+--------------------------
+; | Exercise 2: Tail Recursing Over Lists |
+; +---------------------------------------+
+
+; It's a blast from the past! Let's rewrite some of our basic
+; recursives over lists. For each function:
+;
+;   1. Write a tail-recursive version of the function.
+;   2. Write a collection of test cases that uses the original
+;      version of the function to test the tail-recursive version.
+;
