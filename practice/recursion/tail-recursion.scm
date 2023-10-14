@@ -266,10 +266,23 @@
 ; (Hint: like with append, you will need to use reverse to fix up
 ; the result of the function!)
 
-(define take-tr
-  (lambda (l n)
-    ; TODO: fill me in!
-    1))
+;;; (take-helper so-far l n) -> any?
+;;;   so-far:
+;;;   l: list?
+;;;   n: integer?
+;;; Returns the first n elements of l.
+(define take-helper
+  (lambda (so-far l n)
+    (match (pair l n)
+      [(pair null 0) so-far]
+      [(pair (cons head tail) _)
+       (take-helper )])))
+
+;;; (take-tr l n) -> list?
+;;;   l: list?
+;;;   n: integer?
+;;; Pass something as so-far
+
 
 ; TODO: fill in suitable test cases for take/take-tr below.
 
