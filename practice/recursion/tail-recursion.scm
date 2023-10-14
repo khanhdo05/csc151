@@ -195,3 +195,62 @@
            equal?
            (any (list #t))
            (lambda () (any-tr (list #t))))
+           
+; +-----------------------------------------+------------------------
+; | Exercise 3: Tail Recursing Over Numbers |
+; +-----------------------------------------+
+
+; It's yet another blast from the past! Now let's tackle
+; tail-recursion over the natural numbers. Again, for each function:
+;
+;   1. Write a tail-recursive version of the function.
+;   2. Write a collection of test cases that uses the original
+;      version of the function to test the tail-recursive version.
+;
+; Alternative driver-navigator for each of these functions.
+
+; (harmonic-sequence-sum n) -> number?
+;   n : intenger? >= 0
+; Returns 0 + 1/1 + 1/2 + 1/3 + ... + 1/n
+(define harmonic-sequence-sum
+  (lambda (n)
+    (if (= n 0)
+        0
+        (+ (harmonic-sequence-sum (- n 1)) (/ 1.0 n)))))
+
+; TODO: complete the tail-recursive version of the function below.
+
+(define harmonic-sequence-sum-tr
+  (lambda (n)
+    ; TODO: fill me in!
+    1))
+
+; TODO: fill in suitable test cases for
+; harmonic-sequence-sum/harmonic-sequence-sum-tr below.
+
+; ...
+
+; (take l n) -> list?
+;   l : list?
+;   n : integer?
+; (take l n) returns the first n elements of l.
+(define take
+  (lambda (l n)
+    (if (= n 0)
+        null
+        (match l
+          [null null]
+          [(cons head tail) (cons head (take tail (- n 1)))]))))
+
+; TODO: complete the tail-recursive version of the function below.
+; (Hint: like with append, you will need to use reverse to fix up
+; the result of the function!)
+
+(define take-tr
+  (lambda (l n)
+    ; TODO: fill me in!
+    1))
+
+; TODO: fill in suitable test cases for take/take-tr below.
+
+; ...
