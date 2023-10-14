@@ -246,7 +246,7 @@
            (lambda () (harmonic-sequence-sum-tr 0)))
 
 (test-case "harmonic-sequence-sum-tr a large num"
-           equal?
+           (=-eps 0.00001)
            (harmonic-sequence-sum 100)
            (lambda () (harmonic-sequence-sum-tr 100)))
 
