@@ -110,9 +110,11 @@
 ; TODO: complete the tail-recursive version of the function below.
 
 (define product-tr
-  (lambda (l)
-    ; TODO: fill me in!
-    1))
+  (lambda (so-far l)
+    (match l
+      [null so-far]
+      [(cons head tail) 
+       (product-tr (* head so-far) tail)])))
 
 ; TODO: fill in suitable test cases for product/product-tr below.
 
