@@ -127,7 +127,10 @@
   (lambda (l)
     (product-helper 1 l)))
 
-; TODO: fill in suitable test cases for product/product-tr below.
+(test-case "product-tr list of positive numbers" 
+           equal?
+           (product (list 1 2 3 4))
+           (product-tr (list 1 2 3 4)))
 
 ; ...
 
