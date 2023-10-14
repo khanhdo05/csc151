@@ -180,3 +180,9 @@
            equal?
            (any null)
            (any-tr null))
+
+(test-case "any-tr list of all falses"
+           equal?
+           (any (list #f #f #f #f))
+           (any-tr (list #f #f #f #f)))
+
