@@ -118,7 +118,7 @@
     (match l
       [null so-far]
       [(cons head tail) 
-       (product-tr (* head so-far) tail)])))
+       (product-helper (* head so-far) tail)])))
 
 ; TODO: fill in suitable test cases for product/product-tr below.
 
