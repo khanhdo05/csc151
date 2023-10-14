@@ -62,3 +62,22 @@
            (lambda () (append-tr null (list 4 5))))
 
 (append-tr (list 1 2 3) (list 4 5 6))
+
+; Finally, trace through the execution of append-tr on the second
+; test case:
+;
+;     (append-tr (list 1 2 3) (list 4 5 6))
+; --> (append-helper null (1 2 3) (4 5 6))
+; --> (match (1 2 3) ([() (append (reverse ()) (4 5 6))] [(cons head tail) (append-helper (cons head ()) tail (4 5 6))]))
+; --> (append-helper (cons 1 ()) (2 3) (4 5 6))
+; --> (append-helper (list 1) (2 3) (4 5 6))
+; --> (match (2 3) ([() (append (reverse (1)) (4 5 6))] [(cons head tail) (append-helper (cons head (1)) tail (4 5 6))]))
+; --> (append-helper (cons 2 (1)) (3) (4 5 6))
+; --> (append-helper (list 2 1) (3) (4 5 6))
+; --> (match (3) ([() (append (reverse (2 1)) (4 5 6))] [(cons head tail) (append-helper (cons head (2 1)) tail (4 5 6))]))
+; --> (append-helper (cons 3 (2 1)) () (4 5 6))
+; --> (append-helper (list 3 2 1) () (4 5 6))
+; --> (match () ([() (append (reverse (3 2 1)) (4 5 6))] [(cons head tail) (append-helper (cons head (3 2 1)) tail (4 5 6))]))
+; --> (append (reverse (3 2 1)) (4 5 6))
+; --> (append (list 1 2 3) (4 5 6))
+; --> (list 1 2 3 4 5 6)
