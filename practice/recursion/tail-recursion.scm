@@ -228,6 +228,13 @@
       [0 so-far]
       [_ (harmonic-sequence-sum-helper (+ so-far (/ 1.0 n)) (- n 1))])))
 
+;;; (harmonic-sequence-sum-tr n) -> integer?
+;;;   n: integer? >= 0
+;;; Passing 0 as so-far.
+(define harmonic-sequence-sum-tr
+  (lambda (n)
+    (harmonic-sequence-sum-helper 0 n)))
+    
 ; TODO: fill in suitable test cases for
 ; harmonic-sequence-sum/harmonic-sequence-sum-tr below.
 
