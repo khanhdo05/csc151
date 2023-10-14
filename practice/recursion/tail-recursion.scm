@@ -109,7 +109,7 @@
 
 ; TODO: complete the tail-recursive version of the function below.
 
-(define product-tr
+(define product-helper
   (lambda (so-far l)
     (match l
       [null so-far]
