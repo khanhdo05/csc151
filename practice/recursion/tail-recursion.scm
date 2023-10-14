@@ -225,8 +225,8 @@
 (define harmonic-sequence-sum-helper
   (lambda (so-far n)
     (match n 
-      [null so-far]
-      [_ (harmonic-sequence-sum-helper (- n 1) (/ 1.0 n))])))
+      [0 so-far]
+      [_ (harmonic-sequence-sum-helper (+ so-far (/ 1.0 n)) (- n 1))])))
 
 ; TODO: fill in suitable test cases for
 ; harmonic-sequence-sum/harmonic-sequence-sum-tr below.
