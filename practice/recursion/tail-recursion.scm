@@ -127,6 +127,11 @@
   (lambda (l)
     (product-helper 1 l)))
 
+(test-case "product-tr empty" 
+           equal?
+           (product null)
+           (product-tr null))
+
 (test-case "product-tr list of positive numbers" 
            equal?
            (product (list 1 2 3 4))
