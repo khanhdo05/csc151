@@ -130,22 +130,22 @@
 (test-case "product-tr empty" 
            equal?
            (product null)
-           (product-tr null))
+           (lambda () (product-tr null)))
 
 (test-case "product-tr list of positive numbers" 
            equal?
            (product (list 1 2 3 4))
-           (product-tr (list 1 2 3 4)))
+           (lambda () (product-tr (list 1 2 3 4))))
 
 (test-case "product-tr list of both positive and negative numbers"
            equal?
            (product (list -1 -2 3 4 -5))
-           (product-tr (list -1 -2 3 4 -5)))
+           (lambda () (product-tr (list -1 -2 3 4 -5))))
 
 (test-case "product-tr list of 1 num"
            equal?
            (product (list 100))
-           (product-tr (list 100)))
+           (lambda () (product-tr (list 100))))
 ; ...
 
 ; (any l) -> boolean?
