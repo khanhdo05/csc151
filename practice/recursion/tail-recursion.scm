@@ -195,7 +195,7 @@
            equal?
            (any (list #t))
            (lambda () (any-tr (list #t))))
-           
+
 ; +-----------------------------------------+------------------------
 ; | Exercise 3: Tail Recursing Over Numbers |
 ; +-----------------------------------------+
@@ -206,8 +206,6 @@
 ;   1. Write a tail-recursive version of the function.
 ;   2. Write a collection of test cases that uses the original
 ;      version of the function to test the tail-recursive version.
-;
-; Alternative driver-navigator for each of these functions.
 
 ; (harmonic-sequence-sum n) -> number?
 ;   n : intenger? >= 0
@@ -220,10 +218,15 @@
 
 ; TODO: complete the tail-recursive version of the function below.
 
-(define harmonic-sequence-sum-tr
-  (lambda (n)
-    ; TODO: fill me in!
-    1))
+;;; (harmonic-sequence-sum-helper so-far n) -> integer?
+;;;   so-far:
+;;;   n: integer? >= 0
+;;; Returns 0 + 1/1 +1/2 + ... + 1/n
+(define harmonic-sequence-sum-helper
+  (lambda (so-far n)
+    (match n 
+      [null so-far]
+      [_ (harmonic-sequence-sum-helper (- n 1) (/ 1.0 n))])))
 
 ; TODO: fill in suitable test cases for
 ; harmonic-sequence-sum/harmonic-sequence-sum-tr below.
