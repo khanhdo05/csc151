@@ -146,11 +146,10 @@
            equal?
            (product (list 100))
            (lambda () (product-tr (list 100))))
-; ...
 
 ; (any l) -> boolean?
 ;   l : list? of booleans
-; Returns #t iff at least one of the booleans in l is #t
+; Returns #t iff at least one of the booleans in l is #t.
 (define any
   (lambda (l)
     (match l
@@ -159,10 +158,16 @@
 
 ; TODO: complete the tail-recursive version of the function below.
 
+;;; (any-tr l) -> boolean?
+;;;   so-far: boolean?
+;;;   l: list?, of booleans
+;;; Returns #t if at least one of the booleans in l is #t.
 (define any-tr
-  (lambda (l)
-    ; TODO: fill me in!
-    #f))
+  (lambda (so-far l)
+    (match l
+      [null so-far]
+      [(cons head tail)
+       (any-tr (equal? #t head) tail)])))
 
 ; TODO: fill in suitable test cases for any/any-tr below:
 
