@@ -120,6 +120,13 @@
       [(cons head tail) 
        (product-helper (* head so-far) tail)])))
 
+;;; (product-tr l) -> number?
+;;;   l: list?, a list of numbers
+;;; Passing 1 as so-far.
+(define product-tr
+  (lambda (l)
+    (product-helper 1 l)))
+
 ; TODO: fill in suitable test cases for product/product-tr below.
 
 ; ...
