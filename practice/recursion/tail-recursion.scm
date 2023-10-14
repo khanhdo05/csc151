@@ -158,16 +158,23 @@
 
 ; TODO: complete the tail-recursive version of the function below.
 
-;;; (any-tr l) -> boolean?
+;;; (any-helper so-far l) -> boolean?
 ;;;   so-far: boolean?
 ;;;   l: list?, of booleans
 ;;; Returns #t if at least one of the booleans in l is #t.
-(define any-tr
+(define any-helper
   (lambda (so-far l)
     (match l
       [null so-far]
       [(cons head tail)
-       (any-tr (equal? #t head) tail)])))
+       (any-helper (or head so-far) tail)])))
+
+;;; (any-tr l) -> boolean?
+;;;   l: list?, of booleans
+;;; Passing so-far as #f.
+(define any-tr
+  (lambda (l)
+    (any-helper #f l)))
 
 ; TODO: fill in suitable test cases for any/any-tr below:
 
