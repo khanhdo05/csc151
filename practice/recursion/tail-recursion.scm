@@ -234,11 +234,21 @@
 (define harmonic-sequence-sum-tr
   (lambda (n)
     (harmonic-sequence-sum-helper 0 n)))
-    
-; TODO: fill in suitable test cases for
-; harmonic-sequence-sum/harmonic-sequence-sum-tr below.
 
-; ...
+(test-case "harmonic-sequence-sum-tr n = 3"
+           equal?
+           (harmonic-sequence-sum 3)
+           (lambda () (harmonic-sequence-sum-tr 3)))
+
+(test-case "harmonic-sequence-sum-tr n = 0"
+           equal?
+           (harmonic-sequence-sum 0)
+           (lambda () (harmonic-sequence-sum-tr 0)))
+
+(test-case "harmonic-sequence-sum-tr a large num"
+           equal?
+           (harmonic-sequence-sum 100)
+           (lambda () (harmonic-sequence-sum-tr 100)))
 
 ; (take l n) -> list?
 ;   l : list?
