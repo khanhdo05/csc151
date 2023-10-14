@@ -171,11 +171,12 @@
 
 ;;; (any-tr l) -> boolean?
 ;;;   l: list?, of booleans
-;;; Passing so-far as #f.
+;;; Passing #f as so-far.
 (define any-tr
   (lambda (l)
     (any-helper #f l)))
 
-; TODO: fill in suitable test cases for any/any-tr below:
-
-; ...
+(test-case "any-tr empty" 
+           equal?
+           (any null)
+           (any-tr null))
