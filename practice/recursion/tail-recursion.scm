@@ -98,3 +98,42 @@
 ;   2. Write a collection of test cases that uses the original
 ;      version of the function to test the tail-recursive version.
 ;
+; (product l) -> number?
+;   l : list? of numbers
+; Returns the product of the numbers in l.
+(define product
+  (lambda (l)
+    (match l
+      [null 1]
+      [(cons head tail) (* head (product tail))])))
+
+; TODO: complete the tail-recursive version of the function below.
+
+(define product-tr
+  (lambda (l)
+    ; TODO: fill me in!
+    1))
+
+; TODO: fill in suitable test cases for product/product-tr below.
+
+; ...
+
+; (any l) -> boolean?
+;   l : list? of booleans
+; Returns #t iff at least one of the booleans in l is #t
+(define any
+  (lambda (l)
+    (match l
+      [null #f]
+      [(cons head tail) (or head (any tail))])))
+
+; TODO: complete the tail-recursive version of the function below.
+
+(define any-tr
+  (lambda (l)
+    ; TODO: fill me in!
+    #f))
+
+; TODO: fill in suitable test cases for any/any-tr below:
+
+; ...
