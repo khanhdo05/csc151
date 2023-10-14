@@ -30,3 +30,9 @@
 ; have found that so-far is backwards if you just follow the pattern
 ; from the reading. If you did not already do so, think about how
 ; you can use the reverse function to fix the issue.)
+
+;;; (append-helper so-far l1 l2) -> list?
+;;;   so-far: list?
+;;;   l1: list?
+;;;   l2: list?
+;;; Append two lists using tail recursion.
