@@ -137,6 +137,10 @@
            (product (list 1 2 3 4))
            (product-tr (list 1 2 3 4)))
 
+(test-case "product-tr list of both positive and negative numbers"
+           equal?
+           (product (list -1 -2 3 4 -5))
+           (product-tr (list -1 -2 3 4 -5)))
 ; ...
 
 ; (any l) -> boolean?
