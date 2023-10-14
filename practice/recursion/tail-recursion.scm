@@ -190,3 +190,8 @@
            equal?
            (any (list #f #f #t #f #t))
            (lambda () (any-tr (list #f #f #t #f #t))))
+
+(test-case "any-tr list of one element"
+           equal?
+           (any (list #t))
+           (lambda () (any-tr (list #t))))
