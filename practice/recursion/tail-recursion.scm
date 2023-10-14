@@ -42,3 +42,11 @@
       [null (append so-far l2)]
       [(cons head tail)
        (append-helper (cons head so-far) tail l2)])))
+
+;;; (append-tr l1 l2) -> list?
+;;;   l1: list?
+;;;   l2: list?
+;;; Passing null as so-far.
+(define append-tr 
+  (lambda (l1 l2)
+    (append-helper null l1 l2)))
