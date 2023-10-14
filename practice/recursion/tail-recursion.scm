@@ -109,6 +109,10 @@
 
 ; TODO: complete the tail-recursive version of the function below.
 
+;;; (product-helper so-far l) -> number?
+;;;   so-far: integer?
+;;;   l: list?, a list of numbers
+;;; Returns the product of all the numbers in list l.
 (define product-helper
   (lambda (so-far l)
     (match l
