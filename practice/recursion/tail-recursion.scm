@@ -36,3 +36,9 @@
 ;;;   l1: list?
 ;;;   l2: list?
 ;;; Append two lists using tail recursion.
+(define append-helper
+  (lambda (so-far l1 l2)
+    (match l1
+      [null (append so-far l2)]
+      [(cons head tail)
+       (append-helper (cons head so-far) tail l2)])))
