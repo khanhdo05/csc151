@@ -141,6 +141,11 @@
            equal?
            (product (list -1 -2 3 4 -5))
            (product-tr (list -1 -2 3 4 -5)))
+
+(test-case "product-tr list of 1 num"
+           equal?
+           (product (list 100))
+           (product-tr (list 100)))
 ; ...
 
 ; (any l) -> boolean?
