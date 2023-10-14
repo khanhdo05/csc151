@@ -1,186 +1,250 @@
-;; CSC-151-02 (Fall 23)
-;; Mini-Project 3: Musical Copyright
-;; Khanh Do
-;; 2023-10-13
-;; ACKNOWLEDGEMENTS:
-;;   Following instructions on Mini-Project 4 page
 
-(import lab)
+;; CSC 151 (23fa)
+;; Lab: Numeric Recursion (numeric-recursion.scm)
+;; Authors: Khanh Do, Paul Lim
+;; Date: 9 Oct 23
+;; Acknowledgements:
+;;   Following instructions on webpage.
+
+(import image)
 (import test)
-(import music)
 
-(problem "Part 1: Cartesian Product")
+;; -------------------
+"Problem 1: Replicate"
+;; -------------------
 
-"all-list2"
-; To generate all the lists of size two where the first element is v and the second element
-; is drawn from a list lst:
+;; (Partner A drives!)
 
-; When lst is empty, returns empty list.
-; When lst is non-empty, match list to pattern (cons head tail), then cons a list of a and the
-; head to recursive all-list2 v tail.
+;; Implement a recursive function (replicate v n) that takes a value v and
+;; natural number n as input and returns a list that contains n copies of v.
+;;
+;; (replicate "q" 5)
+;; > (list "q" "q" "q" "q" "q")
+;; (replicate "hello" 0)
+;; > (list)
+;;
+;; Make sure to give a recursive decomposition, docstring, and test suite
+;; for the function.
+;;
+;; (Note that replicate is really another name for make-list, so you can
+;; use make-list to easily write test cases for your function).
+;;
+;; To replicate a value v n times:
+;; + If n is zero, return null.
+;; + If n is non-zero, cons v to (replicate v (n-1)).
 
-;;; (all-list2 v) -> list?
-;;;   v: any?
-;;; Takes a value v and a list of values and creates a list of all possible lists of size 2
-;;; where the first element is v and the second element is a value from lst.
-(define all-list2
-  (lambda (v lst)
-    (match lst
-      [null null]
-      [(cons head tail) (cons (list v head) (all-list2 v tail))])))
+;;; (replicate v n) -> list?
+;;;  v : any?
+;;;  n : integer?, n >= 0
+;;; Returns a list that contains n copies of v.
+(define replicate
+  (lambda (v n)
+    (match n
+      [0 null]
+      [_ (cons v (replicate v (- n 1)))])))
 
-(test-case "v is a string, lst of number" equal? 
-                                          (list (list "q" 0) (list "q" 1) (list "q" 2) (list "q" 3) (list "q" 4))
-                                          (lambda () (all-list2 "q" (range 5))))
-(test-case "v is a character, lst of random" equal? 
-                                             (list (list #\? "hello") (list #\? #\V) (list #\? 9))
-                                             (lambda () (all-list2 #\? (list "hello" #\V 9))))
-(test-case "lst has 2 elements" equal? 
-                                (list (list "a" 2) (list "a" 4))
-                                (lambda () (all-list2 "a" (list 2 4))))
-(test-case "lst has 1 element" equal?
-                               (list (list "b" 1))
-                               (lambda () (all-list2 "b" (list 1))))
-(test-case "base case" equal? null (lambda () (all-list2 "q" null)))
+(test-case "null" equal? null (lambda () (replicate "q" 0)))
+(test-case "q 5" equal? (make-list 5 "q") (lambda () (replicate "q" 5)))
+(test-case "(list 3 a) 5" equal? (make-list 5 (list 3 "a")) 
+                                 (lambda () (replicate (list 3 "a") 5)))
 
-"cartesian-product"
-; To form all pairs of values whose first component is drawn from l1
-; and second component is drawn from l2:
+;; -----------------
+"Problem 2: Harmony"
+;; -----------------
 
-; When l1 is empty, returns empty list.
-; When l2 is non-empty, match pattern of l1 to (cons head tail), then append a list of 
-; head and an element from l2 using all-list2, to recursive cartesian-product tail l2.
+;; (Partner B drives!)
 
-;;; (cartesian-product l1 l2) -> list?
-;;;   l1: list?
-;;;   l2: list?
-;;; Produces the Cartesian Product of the elements drawn from l1, l2, which is a list that contains
-;;; all the possible lists of size 2 (list x y), where x is from l1, y from l2.
-(define cartesian-product
-  (lambda (l1 l2)
-    (match l1
-      [null null]
-      [(cons head tail) 
-       (append (all-list2 head l2) (cartesian-product tail l2))])))
+;; Implement a recursive function (harmonic-sequence-sum n) that takes a
+;; natural number n as input and returns the sum of the first n terms of the
+;; harmonic sequence. The harmonic sequence is defined as follows:
+;;
+;; 1/1 + 1/2 + 1/3 + 1/4 + 1/5 + ...
+;;
+;; (harmonic-sequence-sum 5)
+;; > 2.283333333333333
+;; (harmonic-sequence-sum 100)
+;; > 5.187377517639621
+;; (harmonic-sequence-sum 0) 
+;; > 0
+;;
+;; Make sure to give a recursive decomposition, docstring, and test suite
+;; for the function.
+;;
+;; The sum of the first n terms of the harmonic-sequence is:
+;; + If n is zero... returns 0
+;; + If n is non-zero, add up 1/n with (harmonic-sequence-sum (- n 1))
 
-(test-case "correctly append 2 lists" equal?
-                                      (list (list 0 "a") (list 0 "b")
-                                            (list 1 "a") (list 1 "b")
-                                            (list 2 "a") (list 2 "b")) 
-                                      (lambda () (cartesian-product (range 3) (list "a" "b"))))
-(test-case "list 1 has 1 element" equal?
-                                  (list (list 1 0) (list 1 1) (list 1 2))
-                                  (lambda () (cartesian-product (list 1) (range 3))))
-(test-case "list 2 is null case" equal?
-                                 null ; because all-list2 will match list 2 with null
-                                 (lambda () (cartesian-product (range 3) null)))
-(test-case "base case" equal? null (lambda () (cartesian-product null null)))
+;;; (harmonic-sequence-sum n) -> integer?
+;;;   n: integer?
+;;; Returns the sum of the first n terms of the harmonic sequence.
+(define harmonic-sequence-sum
+  (lambda (n)
+    (match n
+      [0 0]
+      [_ (+ (/ 1 n) (harmonic-sequence-sum (- n 1)))])))
 
-"all-two-note-songs"
-;;; (all-two-note-songs notes) -> composition?
-;;;   notes: list?, list of integers
-;;; Takes a list of notes of MIDI values and produces all the possible two-note songs. 
-(define all-two-note-songs
-  (lambda (notes)
-    (|> notes
-        (lambda (lst) (map (section note _ qn) lst))
-        (lambda (lst) (cartesian-product lst lst))
-        (lambda (lst) (map (section apply seq _) lst)))))
+(test-case "n=5" (=-eps 0) 2.283333333333333 (lambda () (harmonic-sequence-sum 5)))
+(test-case "n=100" (=-eps 0) 5.187377517639621 (lambda () (harmonic-sequence-sum 100)))
+(test-case "base case" = 0 (lambda () (harmonic-sequence-sum 0) ))
 
-"two-note-example"
-(define two-note-example 
-  (all-two-note-songs (list 60 69)))
+;; --------------
+"Problem 3: Drop"
+;; --------------
 
-two-note-example
+;; (Partner A drives!)
 
-(problem "Part 2: All Combinations")
+;; Implement a recursive function (my-drop n l) that takes a list l and natural
+;; number n and returns l, but with the first n elements of l removed. If
+;; n is greater than the length of l, then null is returned.
+;;
+;; (my-drop 3 (range 10))
+;; > (list 3 4 5 6 7 8 9)
+;; (my-drop 0 (range 10))
+;; > (list 0 1 2 3 4 5 6 7 8 9)
+;; (my-drop 5 null)
+;; > null
+;;
+;; For my-drop, you will need to decompose both n and l! Consequently, write
+;; your recursive decomposition in terms of the 4 cases we have based on the
+;; recursive definitions for natural numbers and lists. To pattern match on
+;; both n and l at the same time, you can use pair them up, e.g., (pair n l)
+;; creates a pair of n and l that you can pattern match on with
+;; cons as the pattern. It turns out that pair is just an alias for cons!
+;;
+;; (Note that my-drop is really the drop function provided in the standard
+;; library. Feel free to use drop in your test cases!)
+;;
+;; To drop n elements from l:
+;; 1. When n is 0 and l is null : null
+;; 2. When n is non-zero and l is null : null
+;; 3. When n is 0 and l is not empty : l
+;; 4. When n is non-zero and l is not empty : drop head and call (my-drop (- n 1) tail)
 
-"cons-all"
-; To generate a list of lists of x added to the front of every list:
+;;; (my-drop n l) -> list?
+;;;  n : integer?, non-negative
+;;;  l : list?
+;;; Returns l with the first n elements removed.
+(define my-drop
+  (lambda (n l)
+    (match (pair n l)
+      [(pair 0 null) null]
+      [(pair n null) null]
+      [(pair 0 l) l]
+      [(pair n (cons head tail)) (my-drop (- n 1) tail)])))
 
-; When lsts is empty, returns empty list.
-; When lsts is non-empty, add x to the front of the list and append all the list together.
+(test-case "0 null" equal? null (lambda () (my-drop 0 null)))
+(test-case "0 (list 1 2 3)" equal? (list 1 2 3) (lambda () (my-drop 0 (list 1 2 3))))
+(test-case "5 null" equal? null (lambda () (my-drop 5 null)))
+(test-case "3 (range 10)" equal? (list-drop (range 10) 3) (lambda () (my-drop 3 (range 10))))
 
-;;; (cons-all x lsts) -> list?
-;;;   x: any?
-;;;   lsts: list?, list of lists 
-;;; Takes a single value x and a list of lists, lsts, and returns lsts
-;;; but with x added to the front of every list.
-(define cons-all
-  (lambda (x lsts)
-    (match lsts
-      [null null]
-      [(cons head tail)
-       (cons (cons x head) (cons-all x tail))])))
+;; --------------
+"Problem 4: Take"
+;; --------------
 
-(test-case "cons x to list of lists" equal?
-                                     (list (list 0 1 2)
-                                           (list 0 3 4 5)
-                                           (list 0 6 7))
-                                     (lambda () (cons-all 0 (list (list 1 2)
-                                                                  (list 3 4 5)
-                                                                  (list 6 7)))))
-(test-case "lsts has one null list" equal? 
-                                (list (list "a" #\!) (list "a"))
-                                (lambda () (cons-all "a" (list (list #\!) (list)))))
-(test-case "base case" equal? null (lambda () (cons-all 0 null)))
+;; (Partner A drives!)
 
-"combinations"
-; To generate a list of lists of x added to the front of every list and that x comes from another
-; list of list:
+;; Implement a recursive function (my-take n l) that takes a list l and natural
+;; number n and returns the first n elements of l as a list. If n is greater
+;; than l, then l is returned.
+;;
+;; (my-take 3 (range 10))
+;; > (list 0 1 2)
+;; (my-take 0 (range 10))
+;; > (list)
+;; (my-take 5 null)
+;; > null
+;;
+;; Like my-drop, my-take will need to decompose both n and l. Your recursive
+;; decomposition should have 4 cases based on the recursive definitions for
+;; natural numbers nad lists.
+;;
+;; (Note that my-take is really the take function provided in the standard
+;; library. Feel free to use take in your test cases!)
+;;
+;; To take n elements from l:
+;; 1. When n is 0 and l is null : null
+;; 2. When n is non-zero and l is null : null
+;; 3. When n is 0 and l is not empty : null
+;; 4. When n is non-zero and l is not empty : cons head to (my-take (- n 1) tail)
 
-; When lsts is empty, returns a list of empty list.
-; When lsts has
-; When lsts is non-empty, 
+;;; (my-take n l) -> list?
+;;;   n: integer?
+;;;   l: list?
+;;; Returns the first n elements of l as a list
+(define my-take
+  (lambda (n l)
+    (match (pair n l)
+      [(pair 0 null) null]
+      [(pair n null) null]
+      [(pair 0 l) null]
+      [(pair n (cons head tail)) 
+       (cons head (my-take (- n 1) tail))])))
+ 
+(test-case "3 range 10" equal? (list-take (range 10) 3) (lambda () (my-take 3 (range 10))))
+(test-case " 0 range 10" equal? (list-take (range 10) 0) (lambda () (my-take 0 (range 10))))
+(test-case "base case" equal? null (lambda () (my-take 5 null)))
+;; ------------------- 
+"Problem 5: Triangles"
+;; -------------------
 
-;;; (combinations lsts) -> list?
-;;;   lsts: list?, list of lists
-;;; Returns a list of lists. For each list returned in the result the i-th element of the list 
-;;; is drawn from i-th list of lsts. 
-; (define combinations
-;   (lambda (lsts)
-;     (match lsts
-;       [null (list null)]
-;       [(cons null null) null]
-;       [(cons head tail)
-;        (cons (cons-all head tail) (combinations tail))])))
-;;; (combinations lsts) -> list?
-;;;   lsts: list?, list of lists
-;;; Returns a list of lists. For each list returned in the result the i-th element of the list 
-;;; is drawn from i-th list of lsts. 
-(define append-map (lambda (func lst)
-  (apply append (map func lst))))
-(define combinations 
-  (lambda (lsts)
-    (match lsts
-      [null (list null)] 
-      [(cons null (cons null null)) null] 
-      [(cons (cons h t) tail) 
-     ; Iterate over every item in the first list and prepend it to every combination of the remaining lists
-     (append-map
-      (lambda (item)
-        (map (lambda (sublist) (cons item sublist))
-             (combinations tail)))
-      (cons h t))])))
+;; Sierpinski triangles are a fractal drawing composed of a collection of
+;; triangles nested inside of each other according to the following rules
+;; (taken from: https://en.wikipedia.org/wiki/Sierpi%C5%84ski_triangle):
+;; 
+;; 1. Start with an equilateral triangle.
+;; 2. Subdivide it into four smaller congruent equilateral triangles and
+;;    remove the central triangle.
+;; 3. Repeat step 2 with each of the remaining smaller triangles infinitely.
+;;
+;; Call each layer of Sierpinski triangles a level. At level 0, we draw no
+;; triangles.
+;;
+;; Examples of Sierpinski Triangles for nesting level n = 1, n = 2, and n = 3
+;; can be found on the webpage for this lab.
+;;
+;; Write a recursive function (sierpinski size color n) that draws n levels
+;; of sierpinski triangles in a size × size drawing. Again, proceed by
+;; numeric recursion, give a recursive decomposition and appropriate docstring.
+;;
+;; (Partner A, drive for the recursive decomposition of the function!)
+;;
+;; To draw n levels of Sierpinski Triangles:
+;; + When n = 0: <TODO: fill me in>
+;; + When n > 0: <TODO: fill me in>
+;;
+;; (Partner B, drive for the implementation of the function!)
 
-(test-case "list of many case" equal?
-                               (list 
-                                  (list 1 3 6) (list 1 3 7)
-                                  (list 1 4 6) (list 1 4 7)
-                                  (list 1 5 6) (list 1 5 7)
-                                  (list 2 3 6) (list 2 3 7)
-                                  (list 2 4 6) (list 2 4 7)
-                                  (list 2 5 6) (list 2 5 7))
-                               (lambda () (combinations (list (list 1 2)
-                                                              (list 3 4 5)
-                                                              (list 6 7)))))
-(test-case "base case" equal? (list null) (lambda () (combinations null)))
-(test-case "list of 2 lists" equal?
-                            (list (list 0 "a") (list 0 "b")
-                                  (list 1 "a") (list 1 "b")
-                                  (list 2 "a") (list 2 "b"))
-                            (lambda () (combinations (list (range 3)
-                                                           (list "a" "b")))))
-(test-case "list of null" equal? null (lambda () (combinations (list null null))))
+(define sierpinski
+  (lambda (size color n)
+    (match n
+      [0 (triangle 0 "solid" color)]
+      [1 (triangle size "solid" color)]
+      [_ (overlay (above (rotate 180 (sierpinski (/ size (+ n 1)) "white" (- n 1)))
+                         (rotate 180 (sierpinski (/ size (+ n 1)) "white" (- n 2))))
+                  (triangle size "solid" "black"))])))
 
-(problem "Part 3: Reflection")
+(sierpinski 100 "black" 0)
+(sierpinski 100 "black" 1)
+(sierpinski 100 "black" 2)
+(sierpinski 100 "black" 3)
+;; ------------------------------
+"Extra Problem: Fractal Drawings"
+;; ------------------------------
+
+;; Sierpinsky triangles are an example of a fractal, an infinitely recursive
+;; drawing:
+;;
+;; https://en.wikipedia.org/wiki/Fractal
+;;
+;; There are many kinds of fractals out there! A simple example is the
+;; Cantor set:
+;;
+;; https://en.wikipedia.org/wiki/Cantor_set
+;;
+;; Or the Koch snowflake:
+;;
+;; https://en.wikipedia.org/wiki/Koch_snowflake
+;;
+;; Try implementing a function that draws one of these recursive images to
+;; an arbitrary level of depth. Or try designing your own fractal drawing using
+;; the image library primitives!
