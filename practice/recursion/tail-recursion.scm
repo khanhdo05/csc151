@@ -179,10 +179,14 @@
 (test-case "any-tr empty" 
            equal?
            (any null)
-           (any-tr null))
+           (lambda () (any-tr null)))
 
 (test-case "any-tr list of all falses"
            equal?
            (any (list #f #f #f #f))
-           (any-tr (list #f #f #f #f)))
+           (lambda () (any-tr (list #f #f #f #f))))
 
+(test-case "any-tr some of the elements are true"
+           equal?
+           (any (list #f #f #t #f #t))
+           (lambda () (any-tr (list #f #f #t #f #t))))
