@@ -50,3 +50,15 @@
 (define append-tr 
   (lambda (l1 l2)
     (append-helper null l1 l2)))
+
+(test-case "tail-recursive-append non-empty" 
+           equal?
+           (list 1 2 3 4 5)
+           (lambda () (append-tr (list 1 2 3) (list 4 5))))
+
+(test-case "tail-recursive-append empty" 
+           equal?
+           (list 4 5)
+           (lambda () (append-tr null (list 4 5))))
+           
+(append-tr (list 1 2 3) (list 4 5 6))
