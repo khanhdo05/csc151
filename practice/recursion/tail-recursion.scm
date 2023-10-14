@@ -39,9 +39,9 @@
 (define append-helper
   (lambda (so-far l1 l2)
     (match l1
-      [null (append (reverse so-far) l2)]
+      [null (append (reverse so-far) l2)] ; Because we append head, and then append head to before head -> so-far need to be reversed to be in correct order.
       [(cons head tail)
-       (append-helper (cons head so-far) tail l2)])))
+       (append-helper (cons head so-far) tail l2)]))) ; Append head to so-far to make a new so-far, and then recursive call to so-far tail as l1 and l2.
 
 ;;; (append-tr l1 l2) -> list?
 ;;;   l1: list?
