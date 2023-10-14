@@ -39,7 +39,7 @@
 (define append-helper
   (lambda (so-far l1 l2)
     (match l1
-      [null (append so-far l2)]
+      [null (append (reverse so-far) l2)]
       [(cons head tail)
        (append-helper (cons head so-far) tail l2)])))
 
@@ -51,14 +51,14 @@
   (lambda (l1 l2)
     (append-helper null l1 l2)))
 
-(test-case "tail-recursive-append non-empty" 
+(test-case "append-tr non-empty" 
            equal?
            (list 1 2 3 4 5)
            (lambda () (append-tr (list 1 2 3) (list 4 5))))
 
-(test-case "tail-recursive-append empty" 
+(test-case "append-tr empty" 
            equal?
            (list 4 5)
            (lambda () (append-tr null (list 4 5))))
-           
+
 (append-tr (list 1 2 3) (list 4 5 6))
