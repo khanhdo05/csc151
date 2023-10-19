@@ -1,3 +1,26 @@
+"2.7 (Higher-order programming)"
+
+;;; (remove-all pred? lst) -> list?
+;;;  pred? : procedure?, a predicate
+;;;  lst : list?
+;;; Returns lst after removing elements matching the predicate.
+(define remove-all
+  (lambda (pred? lst)
+    (match lst
+      [null null]
+      [(cons head tail) (if (pred? head)
+                            (remove-all pred? tail)
+                            (cons head (remove-all pred? tail)))])))
+
+(remove-all even? (list 1 2 3 4 5 6))
+(list 1 3 5)
+
+(remove-all odd? (list 1 2 3 4 5 6))
+(list 2 4 6)
+
+(remove-all zero? (list 5 8 0 1 2 0 6 0))
+(list 5 8 1 2 6)
+
 ;; CSC 151 (Fall 2023)
 ;; Lab: Implementing the Big Three
 ;; Authors: Khanh Do, Paul Lim
