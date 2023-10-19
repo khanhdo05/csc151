@@ -1,3 +1,26 @@
+"2.6 (Numeric Recursion)"
+
+;;; (triangle-nums n) -> list?
+;;;   n: integer?, non-negative
+;;; Returns a list of the first n triangle numbers from largest to smallest.
+(define triangle-nums
+  (lambda (n)
+    (let ([formula (lambda (x) (/ (* x (+ x 1)) 2))])
+      (match n
+        [0 null]
+        [_ (cons (formula n) (triangle-nums (- n 1)))]))))
+
+(triangle-nums 0)
+null
+
+(triangle-nums 1)
+(list 1)
+
+(triangle-nums 2)
+(list 3 1)
+
+(triangle-nums 5)
+(list 15 10 6 3 1)
 
 ;; CSC 151 (23fa)
 ;; Lab: Numeric Recursion (numeric-recursion.scm)
