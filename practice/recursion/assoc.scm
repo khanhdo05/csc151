@@ -25,3 +25,8 @@
            equal? 
            (list (cons "apples" 3) (cons "bananas" 2) (cons "oranges" 8))
            (lambda () (assoc-update-inc-by inventory "apples" -2)))
+
+(test-case "base case" 
+           equal? 
+           (list (pair "apples" 3)) 
+           (lambda () (assoc-update-inc-by null "apples" 3)))
