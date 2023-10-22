@@ -30,3 +30,5 @@
            equal? 
            (list (pair "apples" 3)) 
            (lambda () (assoc-update-inc-by null "apples" 3)))
+
+(test-exn "wrong input for d" (lambda () (assoc-update-inc-by 4 "hello" "world")))
