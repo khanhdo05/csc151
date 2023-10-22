@@ -20,3 +20,8 @@
       [null (list (cons k n))]
       [(cons (pair key v) tail)
        (if (equal? k key) (assoc-set k (+ v n) d) (assoc-update-inc-by tail k n))])))
+
+(test-case "update 'apples' -2" 
+           equal? 
+           (list (cons "apples" 3) (cons "bananas" 2) (cons "oranges" 8))
+           (lambda () (assoc-update-inc-by inventory "apples" -2)))
