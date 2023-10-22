@@ -31,4 +31,9 @@
            (list (pair "apples" 3)) 
            (lambda () (assoc-update-inc-by null "apples" 3)))
 
+(test-case "k is not in d should produce wrong output"
+           equal?
+           (list (pair "mango" 3))
+           (lambda () (assoc-update-inc-by inventory "mango" 3)))
+
 (test-exn "wrong input for d" (lambda () (assoc-update-inc-by 4 "hello" "world")))
