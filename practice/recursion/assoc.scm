@@ -14,3 +14,9 @@
 ;;;   k: any
 ;;;   n: any
 ;;; Returns dictionary d but updates key-value pair (pair k v) of d to be (k (+ v n))
+(define assoc-update-inc-by
+  (lambda (d k n)
+    (match d
+      [null (list (cons k n))]
+      [(cons (pair key v) tail)
+       (if (equal? k key) (assoc-set k (+ v n) d) (assoc-update-inc-by tail k n))])))
