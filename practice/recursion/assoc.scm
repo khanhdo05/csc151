@@ -110,3 +110,15 @@
   equal? #f (lambda () (attended-all?  "Dr. Agon" 5 example-roster)))
 (test-case "Dr. Putrid's attendence"
   equal? #t (lambda () (attended-all?  "Dr. Putrid" 5 example-roster)))
+
+;; ------------------
+"Problem 2: Tracking"
+;; ------------------
+
+;; (Partner B drives!)
+
+;; Finally, let's look at assoc-set. (assoc-set k v l) returns a new
+;; association list that is identical to l, except that key k is now
+;; associated with value v. Use assoc-set to implement the following function
+;; over our class roster and give appropriate test cases using example-roster
+;; from the previous problem.
