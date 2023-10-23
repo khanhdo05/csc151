@@ -223,3 +223,13 @@
          (lambda (lst) (string->list lst))
          (lambda (lst) (reduce update-inventory (cons empty-inventory lst))))))
 ; Because update-inventory takes in two parameters so -> (pair empty-inventory lst)
+(define inventory-for-greeting (make-inventory "hello world!"))
+
+(test-case "Greeting counts for 'l'"
+  = 3 (lambda () (assoc-ref #\l inventory-for-greeting)))
+
+(test-case "Greeting counts for 'o'"
+  = 2 (lambda () (assoc-ref #\o inventory-for-greeting)))
+
+(test-case "Greeting counts for 'q'"
+  = 0 (lambda () (assoc-ref #\q inventory-for-greeting)))
