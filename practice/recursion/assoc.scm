@@ -190,3 +190,16 @@
       (if (assoc-key? ch_down inv)
           (assoc-set ch_down (+ 1 (assoc-ref ch_down inv)) inv)
           inv))))
+
+(test-case "Update 1 'a's in the empty inventory"
+  = 1 (lambda () (assoc-ref  #\a (update-inventory empty-inventory #\a))))
+
+(test-case "'B' instead of 'b' case"
+  = 1 (lambda () (assoc-ref  #\b (update-inventory empty-inventory #\B))))
+
+(test-case "ch input is not in inv case"
+  equal? 
+  empty-inventory
+  (lambda () (update-inventory empty-inventory #\?)))
+
+(test-exn "ch input is not a character" (lambda () (update-inventory empty-inventory 5)))
