@@ -166,3 +166,14 @@
 ;; association list, keys will consist of the 26 lowercase characters and
 ;; their associated values will be the number of times the character has
 ;; occurred in the text.
+
+(define empty-inventory
+  (let ([make-k (section map integer->char _)]
+        [make-pair (section cons _ 0)])
+    (map make-pair (make-k (range 97 122)))))
+
+(test-case "No 'a's in the empty inventory"
+  = 0 (lambda () (assoc-ref #\a empty-inventory)))
+
+(test-case "No 'm's in the empty inventory, too"
+  = 0 (lambda () (assoc-ref #\m empty-inventory)))
