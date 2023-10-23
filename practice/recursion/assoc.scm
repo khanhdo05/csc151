@@ -177,3 +177,16 @@
 
 (test-case "No 'm's in the empty inventory, too"
   = 0 (lambda () (assoc-ref #\m empty-inventory)))
+
+;;; (update-inventory inv ch) -> list?
+;;;   inv: list?
+;;;   ch: char?
+;;; Takes an existing letter inventory inv and a single character ch as input. If
+;;; ch is a character (either lowercase or uppercase), then returns inv with updated
+;;; value. If otherwise, return unmodified inv.
+(define update-inventory
+  (lambda (inv ch)
+    (let ([ch_down (char-downcase ch)])
+      (if (assoc-key? ch_down inv)
+          (assoc-set ch_down (+ 1 (assoc-ref ch_down inv)) inv)
+          inv))))
