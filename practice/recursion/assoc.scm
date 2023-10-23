@@ -153,3 +153,16 @@
         (pair "Dr. Putrid" 5)
         (pair "Prof. Pride" 1))  
   (lambda () (update-student "Prof. Pride" example-roster)))
+
+;; --------------------------
+"Problem 3: Letter Inventory"
+;; --------------------------
+
+;; Now, let's turn our attention towards an application of dictionaries to
+;; analyzing written texts: counting letters. While seemingly innoculous,
+;; the frequency of letters is not arbitrary---some letters are more common
+;; than others! Let's use an association list to be able to compute frequency
+;; counts of letters in a text to see how accurate this claim is. In our
+;; association list, keys will consist of the 26 lowercase characters and
+;; their associated values will be the number of times the character has
+;; occurred in the text.
