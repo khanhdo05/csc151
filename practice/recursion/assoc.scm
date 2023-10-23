@@ -134,3 +134,22 @@
     (if (assoc-key? student roster)
         (assoc-set student (+ 1 (assoc-ref student roster)) roster)
         (assoc-set student 1 roster))))
+
+(test-case "Prof. Afterthought's updated attendance"
+  equal? 
+  (list (pair "Prof. Froth" 5) 
+        (pair "Dr. Spark" 5) 
+        (pair "Prof. Afterthought" 3) 
+        (pair "Dr. Agon" 3) 
+        (pair "Dr. Putrid" 5)) 
+  (lambda () (update-student "Prof. Afterthought" example-roster)))
+
+(test-case "Prof. Pride's first attendance"
+  equal?
+  (list (pair "Prof. Froth" 5) 
+        (pair "Dr. Spark" 5) 
+        (pair "Prof. Afterthought" 2) 
+        (pair "Dr. Agon" 3) 
+        (pair "Dr. Putrid" 5)
+        (pair "Prof. Pride" 1))  
+  (lambda () (update-student "Prof. Pride" example-roster)))
