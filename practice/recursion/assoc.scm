@@ -122,3 +122,15 @@
 ;; associated with value v. Use assoc-set to implement the following function
 ;; over our class roster and give appropriate test cases using example-roster
 ;; from the previous problem.
+
+;; (update-student student roster) -> list?
+;;   student: string?
+;;   roster: list?, an assoc. list of students and their attendance.
+;; Returns a new association list that is roster except updated so that
+;; the given student is attending one more class than before. If the student
+;; is not yet in the roster, then they should now have an attendance of one.
+(define update-student
+  (lambda (student roster)
+    (if (assoc-key? student roster)
+        (assoc-set student (+ 1 (assoc-ref student roster)) roster)
+        (assoc-set student 1 roster))))
