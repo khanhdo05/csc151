@@ -203,3 +203,13 @@
   (lambda () (update-inventory empty-inventory #\?)))
 
 (test-exn "ch input is not a character" (lambda () (update-inventory empty-inventory 5)))
+
+;; With empty-inventory and update-inventory, let's make our "top-level"
+;; function. (make-inventory str) takes a string as input and produces a letter
+;; inventory consisting of character counts from that string. To implement this
+;; function, make use a pipeline:
+;;
+;; 1. Transform the string into a list of characters. (string->list str)
+;; 2. Compute a final inventory for the string by sequentially updating an
+;;    inventory with each character.
+;;
