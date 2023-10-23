@@ -89,3 +89,13 @@
 ;;
 ;; Use these functions to implement the following function and give
 ;; appropriate test cases for the function using example-roster above.
+
+;; (attended-all? student num-classes roster) -> boolean?
+;;   student: string?
+;;   num-classes: integer?, a non-negative value
+;;   roster: list?, an association list of students and their attendance.
+;; Returns #t if and only if student is in the roster and if they have
+;; attended all of the classes this semester (represented by num-classes).
+(define attended-all?
+  (lambda (student num-classes roster)
+    (and (assoc-key? student roster) (= (assoc-ref student roster) num-classes))))
