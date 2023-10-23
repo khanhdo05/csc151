@@ -99,3 +99,14 @@
 (define attended-all?
   (lambda (student num-classes roster)
     (and (assoc-key? student roster) (= (assoc-ref student roster) num-classes))))
+
+(test-case "Dr. Spark's attendance"
+  equal? #t (lambda () (attended-all? "Dr. Spark" 5 example-roster)))
+(test-case "Prof. Froth's attendance"
+  equal? #t (lambda () (attended-all?  "Prof. Froth" 5 example-roster)))
+(test-case "Prof. Afterthought's attendance"
+  equal? #f (lambda () (attended-all?  "Prof. Afterthought" 5 example-roster)))
+(test-case "Dr. Agon's attendance"
+  equal? #f (lambda () (attended-all?  "Dr. Agon" 5 example-roster)))
+(test-case "Dr. Putrid's attendence"
+  equal? #t (lambda () (attended-all?  "Dr. Putrid" 5 example-roster)))
