@@ -212,4 +212,14 @@
 ;; 1. Transform the string into a list of characters. (string->list str)
 ;; 2. Compute a final inventory for the string by sequentially updating an
 ;;    inventory with each character.
-;;
+
+;;; (make-inventory str) -> list?
+;;;   str: string?
+;;; Takes a string str as input and produces a letter inventory consisting of character
+;;; counts from that string.c
+(define make-inventory
+  (lambda (str)
+     (|> str
+         (lambda (lst) (string->list lst))
+         (lambda (lst) (reduce update-inventory (cons empty-inventory lst))))))
+; Because update-inventory takes in two parameters so -> (pair empty-inventory lst)
