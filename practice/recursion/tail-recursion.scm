@@ -35,21 +35,21 @@
 ;;;   so-far: list?
 ;;;   l1: list?
 ;;;   l2: list?
-;;; Append two lists using tail recursion.
+;;; Helper func for append-tr
 (define append-helper
-  (lambda (so-far l1 l2)
-    (match l1
-      [null (append (reverse so-far) l2)] ; Because we append head, and then append head to before head -> so-far need to be reversed to be in correct order.
+  (lambda (so-far l2)
+    (match l2
+      [null so-far]
       [(cons head tail)
-       (append-helper (cons head so-far) tail l2)]))) ; Append head to so-far to make a new so-far, and then recursive call to so-far tail as l1 and l2.
+       (append-helper (cons head so-far) tail)])))
 
 ;;; (append-tr l1 l2) -> list?
 ;;;   l1: list?
 ;;;   l2: list?
-;;; Passing null as so-far.
-(define append-tr 
+;;; Acts like append
+(define append-tr
   (lambda (l1 l2)
-    (append-helper null l1 l2)))
+    (reverse (append-helper (reverse l1) l2))))
 
 (test-case "append-tr non-empty" 
            equal?
