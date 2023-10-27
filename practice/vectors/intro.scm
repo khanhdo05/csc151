@@ -73,3 +73,17 @@
 ;; swaps the elements found at two locations in a vector. For this function,
 ;; make sure to check that i and j are valid indices into the vector. If
 ;; not, your function should raise an error with (error ...).
+;; (swap! v i j) -> void?
+;;   v: vector?
+;;   i: integer?, a valid index into v
+;;   j: integer?, a valid index into v
+;; Swaps the elements at indices i and j of v.
+(define swap!
+  (lambda (vec i j)
+    (if (and (< i (vector-length vec)) (< j (vector-length vec)))
+        (let ([i-j (vector-ref vec j)]
+              [j-i (vector-ref vec i)])
+          (begin
+            (vector-set! vec i i-j)
+            (vector-set! vec j j-i)))
+        "Error")))
