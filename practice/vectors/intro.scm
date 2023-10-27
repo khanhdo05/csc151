@@ -179,3 +179,28 @@
 ;; (vector-contains vec v) that returns #t if and only if v is contained
 ;; somewhere inside of vec. First, implement the helper function which
 ;; performs numeric recursion on the index of the vector:
+
+(define vector-contains-helper
+  (lambda (vec v i)
+    (match i
+      [-1 #f]
+      [_ (if (equal? v (vector-ref vec i))
+             #t
+             (vector-contains-helper vec v (- i 1)))])))
+
+;; Now, implement the top-level function that calls the helper you wrote
+;; with an appropriate initial value for the index:
+
+(define vector-contains
+  (lambda (vec v)
+    (vector-contains-helper vec v (- (vector-length vec) 1))))
+
+(test-case "true case"
+           equal?
+           #t
+           (vector-contains (vector 1 2 3 4 5) 2))
+
+(test-case "false case"
+           equal?
+           #f
+           (vector-contains (vector 1 2 3 4 5) 6))
