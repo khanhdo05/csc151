@@ -105,3 +105,21 @@
            equal?
            void
            (lambda () (swap! (vector 1 2 3) 0 1)))
+
+;; --------------------------------
+"Problem: Incrementing in two ways"
+;; --------------------------------
+
+;; A common "stateful" operation we might consider is incrementing the
+;; value at a particular location in a vector. We may also want the value
+;; at that location either _before_ the increment occurs or _after_ the
+;; increment occurs.
+;;
+;; Implement the following pair of functions:
+;;
+;; + (pre-inc vec i) takes a vector vec of numbers and a valid index i into
+;;   vec as input. The function increments the ith element of vec as a side-
+;;   effect and returns the value of the ith element _before_ the increment.
+;; + (post-inc vec i) takes a vector vec of numbers and a valid index i into
+;;   vec as input. The function increments the ith element of vec as a side-
+;;   effect and returns the value of the ith element _after_ the increment.
