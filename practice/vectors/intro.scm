@@ -146,3 +146,36 @@
            equal?
            4
            (lambda () (post-inc (vector 1 2 3) 2)))
+
+;; ------------------------------
+"Problem: Recursion with Vectors"
+;; ------------------------------
+
+;; A notable difference between lists and vectors is that vectors cannot be
+;; easily broken up into a head and tail. Our only recourse for creating the
+;; tail of a vector is to create a new vector without the head! If the
+;; vector is large, then creating these vectors can become very expensive.
+;; In contrast, lists are implemented behind the scenes so that we do not
+;; need to create a copy of the list to access the tail---it is just available
+;; to us.
+;;
+;; Nevertheless, we can still use recursion to traverse vectors. However,
+;; instead of using structural recursion on the vector (because it is not
+;; recursively defined), we'll instead use numeric recursion on the indices
+;; of the vector. These indices range from 0 to (- (vector-length vec) 1) for
+;; vec.
+;;
+;; This "current index" will then become a parameter to our function in
+;; question. However, we frequently will want to always start this index at
+;; 0 or (- (vector-length vec) 1) to scan the entire vector. Thus, our
+;; recursive functions over vectors will be broken up into two functions:
+;;
+;; - A "helper" function that takes the current index and vector as input and
+;;   actually does the recursion.
+;; - A "top-level" function that takes just the vector as input and simply
+;;   calls the helper with an appropriate initial index.
+;;
+;; Let's apply this concept to write a recursive function
+;; (vector-contains vec v) that returns #t if and only if v is contained
+;; somewhere inside of vec. First, implement the helper function which
+;; performs numeric recursion on the index of the vector:
