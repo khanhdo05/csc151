@@ -123,3 +123,26 @@
 ;; + (post-inc vec i) takes a vector vec of numbers and a valid index i into
 ;;   vec as input. The function increments the ith element of vec as a side-
 ;;   effect and returns the value of the ith element _after_ the increment.
+
+(define pre-inc
+  (lambda (vec i)
+    (let ([i-before (vector-ref vec i)])
+      (begin
+        (vector-set! vec i (+ (vector-ref vec i) 1))
+        i-before))))
+
+(test-case "pre-inc"
+           equal?
+           3
+          (lambda () (pre-inc (vector 1 2 3) 2)))
+
+(define post-inc
+  (lambda (vec i)
+    (begin
+      (vector-set! vec i (+ (vector-ref vec i) 1))
+      (vector-ref vec i))))
+
+(test-case "post-inc"
+           equal?
+           4
+           (lambda () (post-inc (vector 1 2 3) 2)))
