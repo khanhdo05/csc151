@@ -43,3 +43,24 @@
 ;; (a) Create a new vector (as a let-binding)
 ;; (b) Mutate the elements of the vector (using vector-set!)
 ;;
+;; Complete the definition of the function below that creates a new vector
+;; of five elements, initially the values 0 through 4. The function then
+;; mutates the 1st, 3rd, and 5th elements to be "zero", "two", and "four."
+;; Finally, the function returns that vector as output. (Note that the
+;; value of the final expression is produced by a begin expression!)
+
+(define make-and-mutate-vector
+  (lambda ()
+    (let ([original-vec (vector 0 1 2 3 4)])
+      (begin
+        (vector-set! original-vec 0 "zero")
+        (vector-set! original-vec 2 "two")
+        (vector-set! original-vec 4 "four")
+        original-vec))))
+
+(test-case "example" 
+           equal? 
+           (list "zero" 1 "two" 3 "four")
+           (lambda () (vector->list (make-and-mutate-vector))))
+
+(make-and-mutate-vector)
