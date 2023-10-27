@@ -87,3 +87,21 @@
             (vector-set! vec i i-j)
             (vector-set! vec j j-i)))
         "Error")))
+
+(test-case "example"
+           equal?
+           (list 1 2 5 4 3)
+           (lambda () 
+             (vector->list 
+               (let ([v (vector 1 2 3 4 5)])
+                 (begin (swap! v 2 4)
+                        v)))))
+(test-case "error"
+           equal?
+           "Error"
+           (lambda () (swap! (vector 1 2 3) 10 4)))
+
+(test-case "returns void"
+           equal?
+           void
+           (lambda () (swap! (vector 1 2 3) 0 1)))
