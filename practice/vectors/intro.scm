@@ -64,3 +64,12 @@
            (lambda () (vector->list (make-and-mutate-vector))))
 
 (make-and-mutate-vector)
+
+;; ----------------
+"Problem: Swapping"
+;; ----------------
+
+;; Complete the following function definition using vector-set! that
+;; swaps the elements found at two locations in a vector. For this function,
+;; make sure to check that i and j are valid indices into the vector. If
+;; not, your function should raise an error with (error ...).
