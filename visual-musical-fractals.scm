@@ -21,3 +21,17 @@
 ;;;   n: integer?, non-negative
 ;;; Draws a Cantor Set of depth n with the given visual properties. width 
 ;;; and height are the dimensions of a single bar.
+(define cantor-set
+  (lambda (width height fill color n)
+    (let ([bar (rectangle width height fill color)]
+          [space (rectangle width height "solid" "transparent")])
+    (match n
+      [0 null]
+      [1 bar]
+      [_ (above 
+           bar
+           space
+           (beside 
+             (cantor-set (/ width 3) height fill color (- n 1))
+             (rectangle (/ width 3) height "solid" "transparent")
+             (cantor-set (/ width 3) height fill color (- n 1))))]))))
