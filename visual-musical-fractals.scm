@@ -35,7 +35,7 @@
              (cantor-set (/ width 3) height fill color (- n 1))
              (rectangle (/ width 3) height "solid" "transparent")
              (cantor-set (/ width 3) height fill color (- n 1))))]))))
-             
+
 "n = 1"
 (cantor-set 100 10 "solid" "green" 1)
 "n = 2"
@@ -44,3 +44,11 @@
 (cantor-set 100 10 "outline" "purple" 3)
 "n = 10"
 (cantor-set 100 10 "solid" "black" 10)
+
+(problem "Sierpiński Carpet")
+
+; (serpinski-carpet length fill color n) draws a Serpinski Carpet of depth n
+; with the given visual properties. In particular, the length property denotes
+; the size of the entire image, not just one of the black squares.
+;;; (serpinski-carpet length fill color n) -> drawing?
+;;;
