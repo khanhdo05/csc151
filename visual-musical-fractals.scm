@@ -23,14 +23,13 @@
 ;;; and height are the dimensions of a single bar.
 (define cantor-set
   (lambda (width height fill color n)
-    (let ([bar (rectangle width height fill color)]
-          [space (rectangle width height "solid" "transparent")])
+    (let ([bar (rectangle width height fill color)])
     (match n
       [0 null]
       [1 bar]
       [_ (above 
            bar
-           space
+           (rectangle width height "solid" "transparent")
            (beside 
              (cantor-set (/ width 3) height fill color (- n 1))
              (rectangle (/ width 3) height "solid" "transparent")
@@ -53,3 +52,6 @@
 ;;;   color: string?
 ;;;   n: integer?, non-negative
 ;;; Draws a Serpinski Carpet of depth n with the given visual properties.
+(define serpinski-carpet
+  (lambda (length fill color n)
+    (let ([box (square length fill color)]))))
