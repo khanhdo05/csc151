@@ -78,3 +78,31 @@
 (serpinski-carpet 100 "solid" "black" 3)
 "n = 5"
 (serpinski-carpet 300 "solid" "purple" 5)
+
+(problem "My Fractal")
+
+;;; (diamond length color) -> drawing?
+;;;   length: integer?, non-negative
+;;;   color: string?
+;;; Draws a rotated 45 degrees square to make a diamond.
+(define diamond
+  (lambda (length color) 
+    (path length                           ; horizontal image size
+          length                           ; vertical image size
+          (list (pair (/ length 2) 0)      ; top point
+                (pair length (/ length 2)) ; far right point
+                (pair (/ length 2) length) ; bottom point
+                (pair 0 (/ length 2))      ; far left point
+                (pair (/ length 2) 0))     ; top point (need to return)
+          "outline"                        ; fill style
+          color)))                         ; color
+
+;;; (my-fractal edge fill color n) -> drawing?
+;;;   edge: integer?, non-negative
+;;;   fill: string?, either "solid" or "outline"
+;;;   color: string?
+;;;   n: integer?, non-negative
+;;; Draws fractal ____ with the given visual properties.
+; (define my-fractal
+;   (lambda (edge fill color n)
+;     (let)))
