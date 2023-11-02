@@ -54,17 +54,18 @@
 ;;; Draws a Serpinski Carpet of depth n with the given visual properties.
 (define serpinski-carpet
   (lambda (length fill color n)
-    (let ([background (square length "solid" "white")])
+    (let ([background (square length "solid" "white")]
+          [box (square (/ length 3) fill color)])
       (match n
         [0 background]
         [1 (overlay 
-             (square (/ length 3) fill color) 
+             box 
              background)]
         [_ (let* ([make-box (overlay 
                               (serpinski-carpet (/ length 3) fill color (- n 1))
-                              background)]
+                              (square (/ length 3) "solid" "white"))]
                   [top-bot-row (beside make-box make-box make-box)]
-                  [mid-row (beside make-box (square length fill color) make-box)])
+                  [mid-row (beside make-box box make-box)])
              (overlay 
                 (above top-bot-row mid-row top-bot-row)
                 background))]))))
