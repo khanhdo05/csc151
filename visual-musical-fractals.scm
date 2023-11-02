@@ -45,10 +45,11 @@
 "n = 10"
 (cantor-set 100 10 "solid" "black" 10)
 
-(problem "Sierpiński Carpet")
+(problem "Serpiński Carpet")
 
-; (serpinski-carpet length fill color n) draws a Serpinski Carpet of depth n
-; with the given visual properties. In particular, the length property denotes
-; the size of the entire image, not just one of the black squares.
 ;;; (serpinski-carpet length fill color n) -> drawing?
-;;;
+;;;   length: integer?, non-negative
+;;;   fill: string?, either "solid" or "outline"
+;;;   color: string?
+;;;   n: integer?, non-negative
+;;; Draws a Serpinski Carpet of depth n with the given visual properties.
