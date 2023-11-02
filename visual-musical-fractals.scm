@@ -61,11 +61,11 @@
         [1 (overlay 
              box 
              background)]
-        [_ (let* ([make-box (overlay 
+        [_ (let* ([small-box (overlay 
                               (serpinski-carpet (/ length 3) fill color (- n 1))
                               (square (/ length 3) "solid" "white"))]
-                  [top-bot-row (beside make-box make-box make-box)]
-                  [mid-row (beside make-box box make-box)])
+                  [top-bot-row (beside small-box small-box small-box)]
+                  [mid-row (beside small-box box small-box)])
              (overlay 
                 (above top-bot-row mid-row top-bot-row)
                 background))]))))
