@@ -4,3 +4,8 @@
 ;; 2023-11-6
 ;; ACKNOWLEDGEMENTS:
 ;;   Adapting instructions on the Mini Project 5 page.
+
+(import lab)
+(import test)
+(import music)
+(import image)
