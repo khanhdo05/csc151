@@ -69,3 +69,12 @@
              (overlay 
                 (above top-bot-row mid-row top-bot-row)
                 background))]))))
+
+"n = 1"
+(serpinski-carpet 100 "solid" "blue" 1)
+"n = 2"
+(serpinski-carpet 100 "outline" "green" 2)
+"n = 3"
+(serpinski-carpet 100 "solid" "black" 3)
+"n = 5"
+(serpinski-carpet 300 "solid" "purple" 5)
