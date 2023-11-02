@@ -35,3 +35,12 @@
              (cantor-set (/ width 3) height fill color (- n 1))
              (rectangle (/ width 3) height "solid" "transparent")
              (cantor-set (/ width 3) height fill color (- n 1))))]))))
+             
+"n = 1"
+(cantor-set 100 10 "solid" "green" 1)
+"n = 2"
+(cantor-set 100 10 "outline" "blue" 2)
+"n = 3"
+(cantor-set 100 10 "outline" "purple" 3)
+"n = 10"
+(cantor-set 100 10 "solid" "black" 10)
