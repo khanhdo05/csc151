@@ -95,12 +95,18 @@
           "outline"                        ; fill style
           color)))                         ; color
 
-;;; (my-fractal edge fill color n) -> drawing?
-;;;   edge: integer?, non-negative
-;;;   fill: string?, either "solid" or "outline"
+;;; (my-fractal length fill color n) -> drawing?
+;;;   length: integer?, non-negative
 ;;;   color: string?
 ;;;   n: integer?, non-negative
-;;; Draws fractal ____ with the given visual properties.
-; (define my-fractal
-;   (lambda (edge fill color n)
-;     (let)))
+;;; Draws fractal kolam with the given visual properties.
+(define my-fractal
+  (lambda (length color n)
+    (match n
+      [0 null]
+      [1 (diamond length color)]
+      [_ (let* ([make-diamond (my-fractal (/ length 3) color (- n 1))]
+                [space (square (/ length 3) "solid" "white")]
+                [top-bot-row (beside space make-diamond space)]
+                [mid-row (beside make-diamond make-diamond make-diamond)])
+           (above top-bot-row mid-row top-bot-row))])))
