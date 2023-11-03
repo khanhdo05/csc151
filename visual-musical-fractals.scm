@@ -132,5 +132,15 @@
 (part "Part 2: Musical Fractal")
 ;--------------------------------
 
+; Helper func
+;;; (div d n) -> duration?
+;;;   d: duration?
+;;;   n: integer?, non-negative
+;;; Takes a duration d and returns that duration but divided by n.
+(define div
+  (lambda (d n)
+    (dur (/ (numerator d) n) (/ (denominator d) n))))
+    
 ;_______________________________________________________________
 (problem "Dominoes")
+
