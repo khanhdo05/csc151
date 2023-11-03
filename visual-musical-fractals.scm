@@ -85,48 +85,45 @@
 ;_______________________________________________________________
 (problem "My Fractal")
 
-;;; (diamond length color) -> drawing?
-;;;   length: integer?, non-negative
-;;;   color: string?
-;;; Draws a rotated 45 degrees square to make a diamond.
-(define diamond
-  (lambda (length color) 
-    (path length                           ; horizontal image size
-          length                           ; vertical image size
-          (list (pair (/ length 2) 0)      ; top point
-                (pair length (/ length 2)) ; far right point
-                (pair (/ length 2) length) ; bottom point
-                (pair 0 (/ length 2))      ; far left point
-                (pair (/ length 2) 0))     ; top point (need to return)
-          "outline"                        ; fill style
-          color)))                         ; color
-
-;;; (my-fractal length fill color n) -> drawing?
+;;; (my-fractal-helper length color n) -> drawing?
 ;;;   length: integer?, non-negative
 ;;;   color: string?
 ;;;   n: integer?, non-negative
 ;;; Draws fractal kolam with the given visual properties.
-(define my-fractal
+(define my-fractal-helper
   (lambda (length color n)
     (match n
       [0 null]
       [1 (diamond length color)]
-      [_ (let* ([make-diamond (my-fractal (/ length 3) color (- n 1))]
+      [_ (let* ([make-diamond (my-fractal-helper (/ length 3) color (- n 1))]
                 [space (square (/ length 3) "solid" "white")]
                 [top-bot-row (beside space make-diamond space)]
                 [mid-row (beside make-diamond make-diamond make-diamond)])
            (above top-bot-row mid-row top-bot-row))])))
 
+;;; (my-fractal length color1 fill color2 n) -> drawing?
+;;;   length: integer?, non-negative
+;;;   color1: string?
+;;;   fill: string? either "solid" or "outline"
+;;;   color2: string?
+;;;   n: integer?, non-negative
+;;; Draws fractal image with the given visual properties (kolam on top of serpinski).
+(define my-fractal
+  (lambda (length color1 fill color2 n)
+    (overlay
+      (my-fractal-helper length color1 n)
+      (serpinski-carpet length fill color2 n))))
+
 "n = 1"
-(my-fractal 100 "blue" 1)
+(my-fractal 100 "blue" "solid" "blue" 1)
 "n = 2"
-(my-fractal 100 "black" 2)
+(my-fractal 100 "black" "solid" "purple" 2)
 "n = 3"
-(my-fractal 100 "pink" 3)
+(my-fractal 200 "red" "outline" "yellow" 3)
 "n = 4"
-(my-fractal 200 "black" 4)
+(my-fractal 300 "black" "solid" "blue" 4)
 "n = 5"
-(my-fractal 300 "green" 6)
+(my-fractal 400 "green" "solid" "transparent" 6)
 
 ;--------------------------------
 (part "Part 2: Musical Fractal")
