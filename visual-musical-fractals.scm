@@ -145,7 +145,7 @@
 (problem "Dominoes")
 
 ;;; (dominoes freq d n) -> composition?
-;;;   freq: integer?, 0 <= frequency <= 4000
+;;;   freq: integer?, 0 <= freq <= 4000
 ;;;   d: duration?
 ;;;   n: integer?, non-negative
 ;;; 
