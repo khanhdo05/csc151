@@ -10,9 +10,13 @@
 (import music)
 (import image)
 
+;--------------------------------
 (part "Part 1: Visual Fractals")
+;--------------------------------
 
+;_______________________________________________________________
 (problem "Cantor Set")
+
 ;;; (cantor-set width height fill color n) -> drawing?
 ;;;   width: integer?, non-negative
 ;;;   height: integer?, non-negative
@@ -44,6 +48,7 @@
 "n = 10"
 (cantor-set 100 10 "solid" "black" 10)
 
+;_______________________________________________________________
 (problem "Serpiński Carpet")
 
 ;;; (serpinski-carpet length fill color n) -> drawing?
@@ -77,6 +82,7 @@
 "n = 5"
 (serpinski-carpet 300 "solid" "purple" 5)
 
+;_______________________________________________________________
 (problem "My Fractal")
 
 ;;; (diamond length color) -> drawing?
