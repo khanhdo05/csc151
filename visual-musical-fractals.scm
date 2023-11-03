@@ -155,3 +155,32 @@
            (dominoes (/ freq 2) (div d 2) (- n 1)))])))
 
 (dominoes 150 wn 3)
+
+;_______________________________________________________________
+(problem "Raindrops")
+
+;;; (raindrops lo hi d n) -> composition?
+;;;   lo: frequency? 0 <= lo <= 4000, lo < hi
+;;;   hi: frequency? 0 <= hi <= 4000, hi > lo
+;;;   d: duration?
+;;;   n: integer?, non-negative
+;;; 
+(define raindrops
+  (lambda (lo hi d n)
+    (let ([new-d (div d 3)])
+      (match n
+        [0 (seq 
+             (note-freq lo new-d)
+             (note-freq hi new-d)
+             (note-freq (/ (+ hi lo) 2) new-d))]
+        [_ (let* ([jump (/ (- 500 100) 4)]
+                  [1qrt (+ lo jump)]
+                  [mid (+ 1qrt jump)]
+                  [3qrt (+ mid jump)])
+             (seq
+               (raindrops lo 1qrt new-d (- n 1))
+               (raindrops 3qrt hi new-d (- n 1))
+               (raindrops 1qrt 3qrt new-d (- n 1))))]))))
+
+; Example 
+(raindrops 100 500 qn 2)
