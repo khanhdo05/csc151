@@ -140,7 +140,21 @@
 (define div
   (lambda (d n)
     (dur (/ (numerator d) n) (/ (denominator d) n))))
-    
+
 ;_______________________________________________________________
 (problem "Dominoes")
 
+;;; (dominoes freq d n) -> composition?
+;;;   freq: integer?, 0 <= frequency <= 4000
+;;;   d: duration?
+;;;   n: integer?, non-negative
+;;; 
+(define dominoes
+  (lambda (freq d n)
+    (match n
+      [0 empty]
+      [_ (seq 
+           (note-freq freq d)
+           (dominoes (/ freq 2) (div d 2) (- n 1)))])))
+
+(dominoes 150 wn 3)
