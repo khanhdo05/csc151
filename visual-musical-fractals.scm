@@ -66,9 +66,7 @@
                               (square (/ length 3) "solid" "white"))]
                   [top-bot-row (beside small-box small-box small-box)]
                   [mid-row (beside small-box box small-box)])
-             (overlay 
-                (above top-bot-row mid-row top-bot-row)
-                background))]))))
+             (above top-bot-row mid-row top-bot-row))]))))
 
 "n = 1"
 (serpinski-carpet 100 "solid" "blue" 1)
