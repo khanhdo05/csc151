@@ -110,3 +110,14 @@
                 [top-bot-row (beside space make-diamond space)]
                 [mid-row (beside make-diamond make-diamond make-diamond)])
            (above top-bot-row mid-row top-bot-row))])))
+           
+"n = 1"
+(my-fractal 100 "blue" 1)
+"n = 2"
+(my-fractal 100 "black" 2)
+"n = 3"
+(my-fractal 100 "pink" 3)
+"n = 4"
+(my-fractal 200 "black" 4)
+"n = 5"
+(my-fractal 300 "green" 6)
