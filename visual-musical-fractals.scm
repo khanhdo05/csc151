@@ -145,15 +145,17 @@
 ;;;   freq: integer?, 0 <= freq <= 4000
 ;;;   d: duration?
 ;;;   n: integer?, non-negative
-;;; 
+;;; Creates a musical fractal composition.
 (define dominoes
   (lambda (freq d n)
-    (match n
-      [0 empty]
-      [_ (seq 
-           (note-freq freq d)
-           (dominoes (/ freq 2) (div d 2) (- n 1)))])))
+    (let ([new-d (div d 2)])
+      (match n
+        [0 empty]
+        [_ (seq 
+             (note-freq freq d)
+             (dominoes (/ freq 2) new-d (- n 1)))]))))
 
+; Example
 (dominoes 150 wn 3)
 
 ;_______________________________________________________________
@@ -164,7 +166,7 @@
 ;;;   hi: frequency? 0 <= hi <= 4000, hi > lo
 ;;;   d: duration?
 ;;;   n: integer?, non-negative
-;;; 
+;;; Creates a musical fractal composition.
 (define raindrops
   (lambda (lo hi d n)
     (let ([new-d (div d 3)])
@@ -184,3 +186,38 @@
 
 ; Example 
 (raindrops 100 500 qn 2)
+
+;_______________________________________________________________
+(problem "My Musical Fractal")
+
+;;; (my-musical-fractal lo hi d n) -> composition?
+;;;   lo: frequency? 0 <= lo <= 4000, lo < hi
+;;;   hi: frequency? 0 <= hi <= 4000, hi > lo
+;;;   d: duration?
+;;;   n: integer?, non-negative
+;;; Creates a musical fractal composition.
+(define my-musical-fractal
+  (lambda (lo hi d n)
+    (let ([d3 (div d 3)]
+          [d4 (div d 4)]
+          [mid (/ (+ lo hi) 2)])
+      (match n
+        [0 (seq 
+             (par (note-freq lo d4) (note-freq (* lo 1.5) d4))
+             (par (note-freq mid d4) (note-freq (* mid 1.5) d4))
+             (par (note-freq hi d4) (note-freq (* hi 1.5) d4))
+             (par (note-freq mid d4) (note-freq (* mid 1.5) d4)))]
+        [_ (seq
+             (par 
+               (my-musical-fractal lo mid d3 (- n 1)) 
+               (my-musical-fractal (* lo 1.5) (* mid 1.5) d3 (- n 1)))
+             (par 
+               (my-musical-fractal mid hi d3 (- n 1)) 
+               (my-musical-fractal (* mid 1.5) (* hi 1.5) d3 (- n 1)))
+             (seq 
+               (par (note-freq mid d3) (note-freq (* mid 1.5) d3))
+               (par (note-freq hi d3) (note-freq (* hi 1.5) d3))
+               (par (note-freq lo d3) (note-freq (* lo 1.5) d3))))]))))
+
+; Example
+(my-musical-fractal 100 500 qn 2)
