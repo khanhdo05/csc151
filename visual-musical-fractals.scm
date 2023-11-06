@@ -170,7 +170,7 @@
   (lambda (freq d n)
     (let ([new-d (div d 2)])
       (match n
-        [0 empty]
+        [0 (empty)]
         [_ (seq 
              (note-freq freq d)
              (dominoes (/ freq 2) new-d (- n 1)))]))))
