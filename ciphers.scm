@@ -4,3 +4,6 @@
 ;; 2023-11-6
 ;; ACKNOWLEDGEMENTS: swap!, shuffle-helper!, shuffle! functions are provided on the 
 ;; Mini-project 6 page.
+
+(import lab)
+(import test)
