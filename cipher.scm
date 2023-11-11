@@ -129,3 +129,9 @@ demo
   (lambda () (encipher-single-char #\e 
                                    test-cipher
                                    test-alphabet)))
+(test-case "test-alphabet not in alphabet"
+  equal? 
+  #\?
+  (lambda () (encipher-single-char #\? 
+                                   test-cipher
+                                   test-alphabet)))
