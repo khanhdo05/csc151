@@ -46,4 +46,4 @@
   (lambda (vec)
     (shuffle-helper! vec ( - (vector-length vec) 1))))
 
-(problem "encipher")
+(problem "Create Cipher")
