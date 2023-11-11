@@ -117,3 +117,9 @@ demo
   (lambda () (encipher-single-char #\c 
                                    test-cipher
                                    test-alphabet)))
+(test-case "test-alphabet d->e"
+  equal? 
+  #\e
+  (lambda () (encipher-single-char #\d 
+                                   test-cipher
+                                   test-alphabet)))
