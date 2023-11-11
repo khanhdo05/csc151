@@ -93,3 +93,8 @@ demo
     (if (list-contains alphabet ch)
         (list-ref alphabet (vector-ref cipher (index-of alphabet ch)))
         ch)))
+
+(description "Testing")
+
+(define test-alphabet (string->list "abcde"))
+(define test-cipher (vector 3 1 0 4 2))
