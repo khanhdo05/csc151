@@ -70,3 +70,13 @@ demo
 ;---------------------------
 (part "Part 2: Enciphering")
 ;---------------------------
+
+;;; (list-contains lst val) -> boolean?
+;;;   lst : list?
+;;;   val : any
+;;; Returns #t if and only if the list contains the value.
+(define list-contains
+  (lambda (lst val)
+    (match lst
+      [null #f]
+      [(cons head tail) (or (equal? head val) (list-contains tail val))])))
