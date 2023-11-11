@@ -98,3 +98,10 @@ demo
 
 (define test-alphabet (string->list "abcde"))
 (define test-cipher (vector 3 1 0 4 2))
+
+(test-case "test-alphabet a->d"
+  equal? 
+  #\d
+  (lambda () (encipher-single-char #\a 
+                                   test-cipher
+                                   test-alphabet)))
