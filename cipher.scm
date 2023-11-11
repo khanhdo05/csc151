@@ -57,3 +57,8 @@
       (begin
         (shuffle! vec)
         vec))))
+
+(description "Testing")
+(create-cipher 7)
+(create-cipher 2)
+(create-cipher 20)
