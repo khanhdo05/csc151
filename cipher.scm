@@ -88,3 +88,8 @@ demo
 ;;; Takes as input a character ch with the cipher and alphabet, and returns the enciphered
 ;;; character that will replace the original in the enciphered message. If the input 
 ;;; character is not in the alphabet, leave it unchanged (return the same ch as was input).
+(define encipher-single-char
+  (lambda (ch cipher alphabet)
+    (if (list-contains alphabet ch)
+        (list-ref alphabet (vector-ref cipher (index-of alphabet ch)))
+        ch)))
