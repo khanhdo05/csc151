@@ -62,3 +62,7 @@
 (create-cipher 7)
 (create-cipher 2)
 (create-cipher 20)
+
+(description "Demo")
+(define demo (create-cipher 5))
+demo
