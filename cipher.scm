@@ -47,3 +47,13 @@
     (shuffle-helper! vec ( - (vector-length vec) 1))))
 
 (problem "Create Cipher")
+
+;;; (create-cipher n) -> vector?
+;;;   n: integer?
+;;; Returns a cipher of length n.
+(define create-cipher
+  (lambda (n)
+    (let ([vec (vector-range n)])
+      (begin
+        (shuffle! vec)
+        vec))))
