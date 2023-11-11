@@ -66,3 +66,7 @@
 (description "Demo")
 (define demo (create-cipher 5))
 demo
+
+;---------------------------
+(part "Part 2: Enciphering")
+;---------------------------
