@@ -80,3 +80,11 @@ demo
     (match lst
       [null #f]
       [(cons head tail) (or (equal? head val) (list-contains tail val))])))
+
+;;; (encipher-single-char ch cipher alphabet) -> character?
+;;;   ch: character?
+;;;   cipher: vector?
+;;;   alphabet: list?
+;;; Takes as input a character ch with the cipher and alphabet, and returns the enciphered
+;;; character that will replace the original in the enciphered message. If the input 
+;;; character is not in the alphabet, leave it unchanged (return the same ch as was input).
