@@ -135,3 +135,12 @@ demo
   (lambda () (encipher-single-char #\? 
                                    test-cipher
                                    test-alphabet)))
+
+(problem "Encipher")
+
+;;; (encipher str cipher alphabet) -> string?
+;;;   str: string?
+;;;   cipher: vector?
+;;;   alphabet: list?
+;;; Takes a string str as input, along with the cipher and alphabet, and
+;;; uses vectors to create and return the enciphered string.
