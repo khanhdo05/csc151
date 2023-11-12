@@ -2,8 +2,8 @@
 ;; Mini-Project 6: Cracking a Cipher
 ;; Khanh Do
 ;; 2023-11-6
-;; ACKNOWLEDGEMENTS: swap!, shuffle-helper!, shuffle! functions are provided on the 
-;; Mini-project 6 page.
+;; ACKNOWLEDGEMENTS: swap!, shuffle-helper!, shuffle!, list-contains functions are provided on
+;; the Mini-project 6 page. Message in Part 2 is adapted from the show "Bridgerton."
 
 (import lab)
 (import test)
@@ -46,8 +46,6 @@
   (lambda (vec)
     (shuffle-helper! vec ( - (vector-length vec) 1))))
 
-(problem "Create Cipher")
-
 ;;; (create-cipher n) -> vector?
 ;;;   n: integer?
 ;;; Returns a cipher of length n.
@@ -58,18 +56,17 @@
         (shuffle! vec)
         vec))))
 
-(description "Testing")
+(problem "Testing")
 (create-cipher 7)
 (create-cipher 2)
 (create-cipher 20)
 
-(description "Demo")
+(problem "Demo")
 
 (define demo (create-cipher 53))
-
+demo
 (define example-cipher 
   (vector 46 9 15 16 28 19 14 37 44 11 47 8 6 23 4 40 50 49 2 26 13 7 36 27 31 24 51 35 29 34 42 20 38 45 17 1 5 3 52 30 48 41 10 39 12 18 33 0 25 43 21 22 32))
-
 example-cipher
 
 ;---------------------------
@@ -99,7 +96,7 @@ example-cipher
         (list-ref alphabet (vector-ref cipher (index-of alphabet ch)))
         ch)))
 
-(description "Testing")
+(problem "Testing")
 
 (define test-alphabet (string->list "abcde"))
 (define test-cipher (vector 3 1 0 4 2))
@@ -134,14 +131,12 @@ example-cipher
   (lambda () (encipher-single-char #\e 
                                    test-cipher
                                    test-alphabet)))
-(test-case "ot in alphabet"
+(test-case "not in alphabet"
   equal? 
   #\?
   (lambda () (encipher-single-char #\? 
                                    test-cipher
                                    test-alphabet)))
-
-(problem "Encipher")
 
 ;;; (encipher str cipher alphabet) -> string?
 ;;;   str: string?
@@ -159,7 +154,7 @@ example-cipher
             vec))
         (section vector->string _))))
 
-(description "Testing")
+(problem "Testing")
 
 (test-case "both char in and not in alphabet"
   equal?
@@ -189,17 +184,24 @@ example-cipher
 (test-exn "invalid input"
   (lambda () (encipher (vector #\a #\b #\c #\d #\e) test-cipher test-alphabet)))
 
-(description "Demo")
+(problem "Demo")
 
 (define message "I found the letters you wrote to him as a child. Just because something is not perfect does not make it any less worthy of love. Your father made you believe otherwise. But he was wrong.")
-"message"
+(description "message")
 message
 
 (define enciphered-message 
   (encipher message example-cipher example-alphabet))
-"enciphered-message"
+(description "enciphered-message")
 enciphered-message
 
 ;----------------------------------------------
 (part "Part 3: Letter Inventories and Ciphers")
 ;----------------------------------------------
+
+;;; (create-inventory str alphabet) -> vector?
+;;;   str: string?
+;;;   alphabet: list?
+;;; Returns a vector inventory of the letters in the string. The inventory has same
+;;; length as the alphabet, and the ith entry of the vector is the number of times the
+;;; letter appears in the input string. 
