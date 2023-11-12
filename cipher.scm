@@ -188,3 +188,14 @@ example-cipher
 
 (test-exn "invalid input"
   (lambda () (encipher (vector #\a #\b #\c #\d #\e) test-cipher test-alphabet)))
+
+(description "Demo")
+
+(define message "I found the letters you wrote to him as a child. Just because something is not perfect does not make it any less worthy of love. Your father made you believe otherwise. But he was wrong.")
+"message"
+message
+
+(define enciphered-message 
+  (encipher message example-cipher example-alphabet))
+"enciphered-message"
+enciphered-message
