@@ -64,8 +64,13 @@
 (create-cipher 20)
 
 (description "Demo")
-(define demo (create-cipher 5))
-demo
+
+(define demo (create-cipher 53))
+
+(define example-cipher 
+  (vector 46 9 15 16 28 19 14 37 44 11 47 8 6 23 4 40 50 49 2 26 13 7 36 27 31 24 51 35 29 34 42 20 38 45 17 1 5 3 52 30 48 41 10 39 12 18 33 0 25 43 21 22 32))
+
+example-cipher
 
 ;---------------------------
 (part "Part 2: Enciphering")
