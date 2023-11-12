@@ -156,3 +156,30 @@ demo
 
 (description "Testing")
 
+(test-case "both char in and not in alphabet"
+  equal?
+  "ahceu"
+  (lambda () (encipher "chedu" test-cipher test-alphabet)))
+
+(test-case "all 5 in alphabet"
+  equal?
+  "ceabd"
+  (lambda () (encipher "edcba" test-cipher test-alphabet)))
+
+(test-case "none in alphabet"
+  equal?
+  "quizz"
+  (lambda () (encipher "quizz" test-cipher test-alphabet)))
+
+(test-case "str length != alphabet length"
+  equal?
+  "hcllo worle!"
+  (lambda () (encipher "hello world!" test-cipher test-alphabet)))
+
+(test-case "str=alphabet"
+  equal?
+  "dbaec"
+  (lambda () (encipher "abcde" test-cipher test-alphabet)))
+
+(test-exn "invalid input"
+  (lambda () (encipher (vector #\a #\b #\c #\d #\e) test-cipher test-alphabet)))
