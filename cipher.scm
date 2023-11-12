@@ -199,3 +199,7 @@ message
   (encipher message example-cipher example-alphabet))
 "enciphered-message"
 enciphered-message
+
+;----------------------------------------------
+(part "Part 3: Letter Inventories and Ciphers")
+;----------------------------------------------
