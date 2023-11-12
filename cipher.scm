@@ -144,3 +144,12 @@ demo
 ;;;   alphabet: list?
 ;;; Takes a string str as input, along with the cipher and alphabet, and
 ;;; uses vectors to create and return the enciphered string.
+(define encipher
+  (lambda (str cipher alphabet)
+    (|> str
+        (section string->vector _)
+        (lambda (vec) 
+          (vector-map 
+            (section encipher-single-char _ cipher alphabet) 
+            vec))
+        (section vector->string _))))
