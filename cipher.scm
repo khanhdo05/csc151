@@ -99,37 +99,37 @@ demo
 (define test-alphabet (string->list "abcde"))
 (define test-cipher (vector 3 1 0 4 2))
 
-(test-case "test-alphabet a->d"
+(test-case "a->d"
   equal? 
   #\d
   (lambda () (encipher-single-char #\a 
                                    test-cipher
                                    test-alphabet)))
-(test-case "test-alphabet b->b"
+(test-case "b->b"
   equal? 
   #\b
   (lambda () (encipher-single-char #\b 
                                    test-cipher
                                    test-alphabet)))
-(test-case "test-alphabet c->a"
+(test-case "c->a"
   equal? 
   #\a
   (lambda () (encipher-single-char #\c 
                                    test-cipher
                                    test-alphabet)))
-(test-case "test-alphabet d->e"
+(test-case "d->e"
   equal? 
   #\e
   (lambda () (encipher-single-char #\d 
                                    test-cipher
                                    test-alphabet)))
-(test-case "test-alphabet e->c"
+(test-case "e->c"
   equal? 
   #\c
   (lambda () (encipher-single-char #\e 
                                    test-cipher
                                    test-alphabet)))
-(test-case "test-alphabet not in alphabet"
+(test-case "ot in alphabet"
   equal? 
   #\?
   (lambda () (encipher-single-char #\? 
