@@ -291,3 +291,24 @@ en-inv
 (define vector-max
   (lambda (vec)
     (vector-max-helper vec (vector-ref vec (- (vector-length vec) 1)) (- (vector-length vec) 1))))
+
+;;; (vector-index-of-helper vec val n) -> integer?
+;;;   vec : vector?
+;;;   val : any
+;;;   n : integer?
+;;; Recursively determines the first index of val in vec, or returns -1 if it is not present.
+(define vector-index-of-helper
+  (lambda (vec val n)
+    (if (> n (- (vector-length vec) 1))
+      -1
+      (if (equal? (vector-ref vec n) val)
+        n
+        (vector-index-of-helper vec val (+ n 1))))))
+
+;;; (vector-index-of vec val) -> integer?
+;;;   vec : vector?
+;;;   val : any
+;;; Returns the index of the first occurrence of val in vec or -1 if val is not in vec.
+(define vector-index-of
+  (lambda (vec val)
+    (vector-index-of-helper vec val 0)))
