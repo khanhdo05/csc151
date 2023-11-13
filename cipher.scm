@@ -390,3 +390,7 @@ reverse-cipher
 (define decipher
   (lambda (scrambled alphabet ref-inv)
     (encipher scrambled ref-inv alphabet)))
+
+(problem "Demo decipher")
+(description "Attempt")
+(decipher enciphered-message example-alphabet reverse-cipher)
