@@ -351,3 +351,24 @@ en-inv
       (begin
         (for-range 0 (vector-length vec) (lambda (n) (vector-set! copy n (vector-ref vec n))))
         copy))))
+
+;;; (reverse-cipher! encoded-inv ref-inv) -> vector?
+;;;   encoded-inv: vector?
+;;;   ref-inv: vector?
+;;; Takes in the inventory of the encoded string and a reference inventory 
+;;; (from an unencoded text), and returns the reverse cipher.
+(define reverse-cipher!
+  (lambda (encoded-inv ref-inv)
+    (let ([reverse-cipher (make-vector (vector-length encoded-inv) 0)]
+          [copy-en-inv (copy-vector encoded-inv)]
+          [copy-ref-inv (copy-vector ref-inv)])
+      (begin
+        (for-range 0 (vector-length encoded-inv)
+          (lambda (i)
+            (let ([max-en-i (find-vector-max copy-en-inv)]
+                  [max-ref-i (find-vector-max copy-ref-inv)])
+              (begin
+                (vector-set! reverse-cipher max-en-i max-ref-i)
+                (vector-set! copy-en-inv max-en-i -1)
+                (vector-set! copy-ref-inv max-ref-i -1)))))
+        reverse-cipher))))
