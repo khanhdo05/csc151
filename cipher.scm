@@ -2,11 +2,14 @@
 ;; Mini-Project 6: Cracking a Cipher
 ;; Khanh Do
 ;; 2023-11-6
-;; ACKNOWLEDGEMENTS: swap!, shuffle-helper!, shuffle!, list-contains functions are provided on
-;; the Mini-project 6 page. Message in Part 2 is adapted from the show "Bridgerton."
+;; ACKNOWLEDGEMENTS: swap!, shuffle!, list-contains, vector-max, vector-index-of
+;; copy-vector functions are provided on the Mini-project 6 page. Message in Part
+;; 2 is adapted from the show "Bridgerton."
 
 (import lab)
 (import test)
+
+(title "Mini-Project 6: Cracking a Cipher")
 
 ;---------------------------------------------
 (part "Part 1. Creating Substitution Ciphers")
@@ -56,12 +59,13 @@
         (shuffle! vec)
         vec))))
 
-(problem "Testing")
+(problem "Testing create-cipher")
+
 (create-cipher 7)
 (create-cipher 2)
 (create-cipher 20)
 
-(problem "Demo")
+(problem "Demo example-cipher")
 
 (define demo (create-cipher 53))
 demo
