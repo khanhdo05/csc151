@@ -229,3 +229,30 @@ enciphered-message
                    (lambda (i) 
                      (create-inventory-helper (string-ref str i) inventory alphabet)))
         inventory))))
+
+(problem "Testing create-inventory")
+
+(test-case "all a"
+  equal?
+  (list 5 0 0 0 0)
+  (lambda () (vector->list (create-inventory "aaaaa" test-alphabet))))
+
+(test-case "all b"
+  equal?
+  (list 0 5 0 0 0)
+  (lambda () (vector->list (create-inventory "bbbbb" test-alphabet))))
+
+(test-case "abcde"
+  equal?
+  (list 1 1 1 1 1)
+  (lambda () (vector->list (create-inventory "abcde" test-alphabet))))
+
+(test-case "non in alphabet"
+  equal?
+  (list 0 0 0 0 0)
+  (lambda () (vector->list (create-inventory "quist" test-alphabet))))
+
+(test-case "in and not in alphabet"
+  equal?
+  (list 2 0 0 0 1)
+  (lambda () (vector->list (create-inventory "aa eo" test-alphabet))))
