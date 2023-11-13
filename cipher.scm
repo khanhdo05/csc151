@@ -266,3 +266,7 @@ ori-inv
 (description "en-inv")
 (define en-inv (create-inventory enciphered-message example-alphabet))
 en-inv
+
+;---------------------------
+(part "Part 4: Deciphering")
+;---------------------------
