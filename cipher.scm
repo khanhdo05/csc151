@@ -377,3 +377,7 @@ en-inv
 
 (define reverse-cipher (reverse-cipher! en-inv ori-inv))
 reverse-cipher
+
+;-----------------------------
+(part "Part 5: Does it work?")
+;-----------------------------
