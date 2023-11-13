@@ -372,3 +372,8 @@ en-inv
                 (vector-set! copy-en-inv max-en-i -1)
                 (vector-set! copy-ref-inv max-ref-i -1)))))
         reverse-cipher))))
+
+(problem "Demo reverse-cipher!")
+
+(define reverse-cipher (reverse-cipher! en-inv ori-inv))
+reverse-cipher
