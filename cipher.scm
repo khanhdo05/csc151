@@ -312,3 +312,10 @@ en-inv
 (define vector-index-of
   (lambda (vec val)
     (vector-index-of-helper vec val 0)))
+
+;;; (find-vector-max vec) -> integer?
+;;;   vec: vector?
+;;; Returns the index of the maximum value in the input vector.
+(define find-vector-max
+  (lambda (vec)
+    (vector-index-of vec (vector-max vec))))
