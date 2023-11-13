@@ -256,3 +256,13 @@ enciphered-message
   equal?
   (list 2 0 0 0 1)
   (lambda () (vector->list (create-inventory "aa eo" test-alphabet))))
+
+(problem "Demo create-inventory")
+
+(description "ori-inv")
+(define ori-inv (create-inventory message example-alphabet))
+ori-inv
+
+(description "en-inv")
+(define en-inv (create-inventory enciphered-message example-alphabet))
+en-inv
