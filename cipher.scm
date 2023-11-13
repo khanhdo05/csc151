@@ -270,3 +270,24 @@ en-inv
 ;---------------------------
 (part "Part 4: Deciphering")
 ;---------------------------
+
+;;; (vector-max-helper vec max n) -> any
+;;;   vec : vector?
+;;;   max : any
+;;;   n : integer?
+;;; Recursively finds the maximum value of the vector.
+(define vector-max-helper
+  (lambda (vec max n)
+    (if (< n 0)
+      max
+      (let ([current (vector-ref vec n)])
+        (if (> current max)
+          (vector-max-helper vec current (- n 1))
+          (vector-max-helper vec max (- n 1)))))))
+
+;;; (vector-max vec) -> any
+;;;   vec : vector?
+;;; Returns the maximum value in the vector.
+(define vector-max
+  (lambda (vec)
+    (vector-max-helper vec (vector-ref vec (- (vector-length vec) 1)) (- (vector-length vec) 1))))
