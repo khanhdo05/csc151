@@ -381,3 +381,12 @@ reverse-cipher
 ;-----------------------------
 (part "Part 5: Does it work?")
 ;-----------------------------
+
+;;; (decipher scrambled alphabet ref-inv) -> string?
+;;;   scrambled: string?
+;;;   alphabet: list?
+;;;   ref-inv: vector?
+;;; Returns the (attempted) deciphered message.
+(define decipher
+  (lambda (scrambled alphabet ref-inv)
+    (encipher scrambled ref-inv alphabet)))
