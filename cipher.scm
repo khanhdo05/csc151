@@ -341,3 +341,13 @@ en-inv
   equal?
   4
   (lambda () (find-vector-max (vector 6 9 8 2 100 2))))
+
+;;; (copy-vector vec) -> vector?
+;;;   vec : vector?
+;;; Returns a copy of the original vector (will not work in some rare specific cases).
+(define copy-vector
+  (lambda (vec)
+    (let ([copy (vector-range (vector-length vec))])
+      (begin
+        (for-range 0 (vector-length vec) (lambda (n) (vector-set! copy n (vector-ref vec n))))
+        copy))))
