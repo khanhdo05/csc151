@@ -319,3 +319,25 @@ en-inv
 (define find-vector-max
   (lambda (vec)
     (vector-index-of vec (vector-max vec))))
+
+(problem "Testing find-vector-max")
+
+(test-case "1st index"
+  equal?
+  0
+  (lambda () (find-vector-max (vector 101 9 8 2 100 2))))
+
+(test-case "in the middle"
+  equal?
+  4
+  (lambda () (find-vector-max (vector 6 9 8 2 100 2))))
+
+(test-case "last index"
+  equal?
+  7
+  (lambda () (find-vector-max (vector 6 9 8 2 100 2 1000 200000))))
+
+(test-case "4th"
+  equal?
+  4
+  (lambda () (find-vector-max (vector 6 9 8 2 100 2))))
