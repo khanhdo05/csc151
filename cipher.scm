@@ -203,9 +203,13 @@ enciphered-message
 (part "Part 3: Letter Inventories and Ciphers")
 ;----------------------------------------------
 
-;;; (create-inventory str alphabet) -> vector?
-;;;   str: string?
+;;; (create-inventory-helper ch alphabet) -> void
+;;;   ch: character?
 ;;;   alphabet: list?
-;;; Returns a vector inventory of the letters in the string. The inventory has same
-;;; length as the alphabet, and the ith entry of the vector is the number of times the
-;;; letter appears in the input string. 
+;;; Updates the inventory based on a single input character.
+(define create-inventory-helper 
+  (lambda (ch inventory alphabet)
+    (if (list-contains alphabet ch)
+        (let ([i (index-of alphabet ch)])
+          (vector-set! inventory i (+ 1 (vector-ref inventory i))))
+        void)))
