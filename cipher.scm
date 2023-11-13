@@ -100,7 +100,7 @@ example-cipher
         (list-ref alphabet (vector-ref cipher (index-of alphabet ch)))
         ch)))
 
-(problem "Testing")
+(problem "Testing encipher-single-char")
 
 (define test-alphabet (string->list "abcde"))
 (define test-cipher (vector 3 1 0 4 2))
@@ -158,7 +158,7 @@ example-cipher
             vec))
         (section vector->string _))))
 
-(problem "Testing")
+(problem "Testing encipher")
 
 (test-case "both char in and not in alphabet"
   equal?
@@ -188,9 +188,9 @@ example-cipher
 (test-exn "invalid input"
   (lambda () (encipher (vector #\a #\b #\c #\d #\e) test-cipher test-alphabet)))
 
-(problem "Demo")
+(problem "Demo message")
 
-(define message "I found the letters you wrote to him as a child. Just because something is not perfect does not make it any less worthy of love. Your father made you believe otherwise. But he was wrong.")
+(define message "I know why you made that vow to your father. I found the letters you wrote to him as a child, and I read them. Just because something is not perfect does not make it any less worthy of love. Your father made you believe otherwise. He made you believe that you needed to be without fault in order to be loved. But he was wrong. Should you need any proof of the matter, well then look just here. I’m tired of pretending that I cannot continue acting as… as if I do not love you. Because I do. I love all of you, even the parts that you think are too dark and too shameful. Every scar, every flaw, every imperfection. I love you. Now you may think that you are too damaged and too broken to allow yourself to be happy, but you can choose differently Simon. You can choose to love me as much as I love you. That should not be up to anyone else. That cannot be up to anyone else. That can only be up to you.")
 (description "message")
 message
 
