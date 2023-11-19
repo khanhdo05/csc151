@@ -1,11 +1,10 @@
 ; asdr.scm
 
-;; CSC 151 (SEMESTER)
+;; CSC 151 02(fall 2023)
 ;; Lab: ASDR (asdr.scm)
-;; Authors: YOUR NAMES HERE
-;; Date: THE DATE HERE
-;; Acknowledgements:
-;;   ACKNOWLEDGEMENTS HERE
+;; Authors: Khanh Do
+;; Date: 19 Nov
+;; Acknowledgements: N/A
 
 (import audio)
 
@@ -176,14 +175,17 @@
     (let* ([single-note (synthesize-square-note sample-rate frequency duration)]
            [single-note-length (vector-length single-note)]
            [total-length (* single-note-length n)]
-           [vec (make-vector total-length 0)]
-           [indexes (vector-range total-length)])
+           [square-notes (make-vector total-length 0)]) ; square-note vector will be modified
       (begin
-        
-        ))))
-
-(synthesize-square-notes "sawtooth" 1000 880 1 2)
-
+        (for-range 0 n (lambda (i) ; iterate over each note
+                         (let ([start (* i single-note-length)])
+                           (for-range 0 single-note-length (lambda (j) ; iterate over each sample within each note
+                                                             (vector-set! square-notes 
+                                                                          (+ start j) 
+                                                                          (vector-ref single-note j)))))))
+        square-notes))))
+(sample-node (synthesize-square-notes "sawtooth" 16000 880 1 2))
+(sample-node (synthesize-square-notes "test" 20000 880 1 3))
 ;; Like with synthesize-notes, try out your function here. Make sure
 ;; only leave at most one example uncommented to avoid making the file
 ;; too time-consuming to run!
