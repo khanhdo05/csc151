@@ -6,3 +6,7 @@
 ;; 2023-11-19
 ;; ACKNOWLEDGEMENTS: every functions that help define function synthesize-square-note
 ;; are adpated from asdr lab.
+
+(import lab)
+(import test)
+(import audio)
