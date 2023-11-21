@@ -43,3 +43,23 @@
 (define sine-helper
   (lambda (t T)
     (sin (* 2 pi (/ t T)))))
+
+;;; (wave-sample sample-rate frequency duration) -> vector?
+;;;   waveform: procedure?
+;;;   sample-rate: integer?, non-negative
+;;;   frequency: number?, non-negative
+;;;   duration: integer?, non-negative
+;;; Returns a vector of waveform value.
+(define wave-sample
+  (lambda (waveform sample-rate frequency duration)
+    (let* ([W (* duration frequency)]
+           [N (round (samples-per-wave sample-rate frequency))]
+           [total-samples (* W N)]
+           [T (/ 1 frequency)]
+           [dt (/ T N)]
+           [vec (vector-range 0 total-samples)])
+      (begin
+        (vector-map! (section modulo _ N) vec)
+        (vector-map! (section * _ dt) vec)
+        (vector-map! (section waveform _ T) vec)                      
+        vec))))
