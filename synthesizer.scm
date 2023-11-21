@@ -25,3 +25,21 @@
 (define samples-per-wave
   (lambda (sample-rate frequency)
     (/ sample-rate frequency)))
+
+;;; (square-helper t T) -> integer?
+;;;   t: integer?
+;;;   T: integer?
+;;; Returns -1 or 1 by comparing t to T.
+(define square-helper
+  (lambda (t T)
+    (if (< t (/ T 2))
+        -1
+        1)))
+
+;;; (sine-helper t T) -> integer?
+;;;   t: integer?
+;;;   T: integer?
+;;; Returns appropriate sine note.
+(define sine-helper
+  (lambda (t T)
+    (sin (* 2 pi (/ t T)))))
