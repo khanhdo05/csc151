@@ -16,3 +16,12 @@
 ;; -------------------
 (problem "Part 1: Multi-voice synthesis")
 ;; -------------------
+
+;;; (samples-per-wave sample-rate frequency) -> number?
+;;;   sample-rate: number?, a non-negative integer
+;;;   frequency: number?, a non-negative number 
+;;; Returns the number of samples per waveform for a given sample rate and
+;;; frequncy of wave pattern.
+(define samples-per-wave
+  (lambda (sample-rate frequency)
+    (/ sample-rate frequency)))
