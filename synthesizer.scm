@@ -82,3 +82,11 @@
     (|> (vector-range total-samples)
         (lambda (vec) 
           (vector-map (section simple-envelope-helper total-samples _) vec)))))
+
+;;; (apply-envelope clip envelope) -> vector?
+;;;   clip: vector? of samples [-1.0, 1.0]
+;;;   envelope: vector? of samples in the range [0, 1]
+;;; Mutates clip so that the is applied to the clip.
+(define apply-envelope
+  (lambda (clip envelope)
+    (vector-map * clip envelope)))
