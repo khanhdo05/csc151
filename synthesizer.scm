@@ -10,3 +10,9 @@
 (import lab)
 (import test)
 (import audio)
+
+(title "Mini-Project 7: A Simple Synthesizer")
+
+;; -------------------
+(problem "Part 1: Multi-voice synthesis")
+;; -------------------
