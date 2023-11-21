@@ -124,3 +124,7 @@
 
 (description "generate-note example")
 (sample-node (generate-note 16000 440 1))
+
+;; -------------------
+(problem "Part 2: The ADSR Envelope")
+;; -------------------
