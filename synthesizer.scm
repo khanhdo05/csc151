@@ -121,3 +121,6 @@
                                      (vector-set! mixed-wave i (/ (+ (vector-ref square-sample i) 
                                                                      (vector-ref sine-sample i)) 2))))
         mixed-wave))))
+
+(description "generate-note example")
+(sample-node (generate-note 16000 440 1))
