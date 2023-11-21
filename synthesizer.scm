@@ -63,3 +63,22 @@
         (vector-map! (section * _ dt) vec)
         (vector-map! (section waveform _ T) vec)                      
         vec))))
+
+;;; (simple-envelope-helper total-samples n) -> number?
+;;;   total-samples: integer? non-negative
+;;;   n: integer?, non-negative
+;;; Returns a number that is calculated.
+(define simple-envelope-helper
+  (lambda (total-samples n)
+    (let ([step (/ 1.0 total-samples)])
+      (- 1.0 (* step n)))))
+
+;;; (simple-envelope total-samples) -> vector?
+;;;   total-samples: integer? non-negative
+;;; Takes the total number of samples in the clip total-samples and returns a vector
+;;; of linear decay steps from 1.0 to 0.0.
+(define simple-envelope
+  (lambda (total-samples)
+    (|> (vector-range total-samples)
+        (lambda (vec) 
+          (vector-map (section simple-envelope-helper total-samples _) vec)))))
