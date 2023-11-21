@@ -104,3 +104,20 @@
            [N (round (samples-per-wave sample-rate frequency))]
            [total-samples (* W N)])
     (apply-envelope (wave-sample waveform sample-rate frequency duration) (simple-envelope total-samples)))))
+
+;;; (generate-note sample-rate frequency duration) -> vector?
+;;;   sample-rate: number?, a non-negative integer
+;;;   frequency: number?, a non-negative number
+;;;   duration: number?, a non-negative number
+;;; Returns a note by combining a square wave and a sine wave.
+(define generate-note
+  (lambda (sample-rate frequency duration)
+    (let* ([square-sample (generate-wave-note square-helper sample-rate frequency duration)]
+           [sine-sample (generate-wave-note sine-helper sample-rate frequency duration)]
+           [total-samples (vector-length square-sample)]
+           [mixed-wave (make-vector total-samples 0)])  
+      (begin
+        (for-range 0 total-samples (lambda (i)
+                                     (vector-set! mixed-wave i (/ (+ (vector-ref square-sample i) 
+                                                                     (vector-ref sine-sample i)) 2))))
+        mixed-wave))))
