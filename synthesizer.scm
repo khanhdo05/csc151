@@ -213,3 +213,24 @@
     (apply-envelope 
       (wave-sample waveform sample-rate frequency duration) 
       envelope-vec))))
+
+;;; (generate-asdr-note sample-rate frequency duration envelope-proportions) -> vector?
+;;;   sample-rate: number?, a non-negative integer
+;;;   frequency: number?, a non-negative number
+;;;   duration: number?, a non-negative number
+;;;   envelope-proportions: list?, of three numbers (less than 1.0)
+;;; Returns asdr notes, square and sine waves combined.
+(define generate-asdr-note
+  (lambda (sample-rate frequency duration envelope-proportions)
+    (let* ([full-envelope (asdr-envelope sample-rate frequency duration envelope-proportions)]
+           [square-sample (generate-wave-asdr-note square-helper sample-rate frequency duration full-envelope)]
+           [sine-sample (generate-wave-asdr-note sine-helper sample-rate frequency duration full-envelope)]
+           [total-samples (vector-length square-sample)]
+           [mixed-wave (make-vector total-samples 0)])
+      (begin
+        (for-range 0 total-samples (lambda (i)
+                                   (vector-set! mixed-wave i (* (/ (+ (vector-ref square-sample i) 
+                                                                      (vector-ref sine-sample i))
+                                                                   2)
+                                                                (vector-ref full-envelope i)))))
+        mixed-wave))))
