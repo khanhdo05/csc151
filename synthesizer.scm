@@ -197,3 +197,19 @@
            [release-env (envelope release release-duration)]
            [full-envelope (vector-append attack-env decay-env sustain-env release-env)])
       full-envelope)))
+
+;;; (generate-wave-note sample-rate frequency duration) -> vector?
+;;;   waveform: procedure?
+;;;   sample-rate: number?, a non-negative integer
+;;;   frequency: number?, a non-negative number
+;;;   duration: number?, a non-negative number
+;;; Returns a vector of samples representing a single note syntheiszed from
+;;; the given parameters.
+(define generate-wave-asdr-note
+  (lambda (waveform sample-rate frequency duration envelope-vec)
+    (let* ([W (* duration frequency)]
+           [N (round (samples-per-wave sample-rate frequency))]
+           [total-samples (* W N)])
+    (apply-envelope 
+      (wave-sample waveform sample-rate frequency duration) 
+      envelope-vec))))
