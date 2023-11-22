@@ -234,3 +234,6 @@
                                                                    2)
                                                                 (vector-ref full-envelope i)))))
         mixed-wave))))
+
+(description "generate-asdr-note example")
+(sample-node (generate-asdr-note 16000 440 1 (list 0.1 0.3 0.2)))
