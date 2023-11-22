@@ -163,3 +163,13 @@
   (lambda (total-samples n)
     (let ([step (/ 0.5 total-samples)])
       (- 0.5 (* step n)))))
+
+;;; (envelope total-samples) -> vector?
+;;;   period: procedure?, either attack, decay, sustain, or release
+;;;   total-samples: integer? non-negative
+;;; Takes the total number of samples in the clip total-samples and returns a vector according to the period.
+(define envelope
+  (lambda (period total-samples)
+    (|> (vector-range total-samples)
+        (lambda (vec) 
+          (vector-map (section period total-samples _) vec)))))
