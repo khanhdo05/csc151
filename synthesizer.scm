@@ -128,3 +128,12 @@
 ;; -------------------
 (problem "Part 2: The ADSR Envelope")
 ;; -------------------
+
+;;; (attack total-samples n) -> number?
+;;;   total-samples: integer? non-negative
+;;;   n: integer?, non-negative
+;;; Returns a number that is calculated for attack period. (increases linearly from 0.0 to 1.0)
+(define attack
+  (lambda (total-samples n)
+    (let ([step (/ 1.0 total-samples)])
+      (* step n))))
