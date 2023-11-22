@@ -198,7 +198,7 @@
            [full-envelope (vector-append attack-env decay-env sustain-env release-env)])
       full-envelope)))
 
-;;; (generate-wave-note sample-rate frequency duration) -> vector?
+;;; (generate-wave-asdr-note sample-rate frequency duration) -> vector?
 ;;;   waveform: procedure?
 ;;;   sample-rate: number?, a non-negative integer
 ;;;   frequency: number?, a non-negative number
