@@ -154,3 +154,12 @@
 (define sustain
   (lambda (total-samples n)
     0.5))
+
+;;; (release total-samples n) -> number?
+;;;   total-samples: integer? non-negative
+;;;   n: integer?, non-negative
+;;; Returns a number that is calculated for release period. (decreases linearly from 0.5 to 0.0)
+(define release
+  (lambda (total-samples n)
+    (let ([step (/ 0.5 total-samples)])
+      (- 0.5 (* step n)))))
