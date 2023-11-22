@@ -173,3 +173,27 @@
     (|> (vector-range total-samples)
         (lambda (vec) 
           (vector-map (section period total-samples _) vec)))))
+
+;;; (asdr-envelope sample-rate frequency duration envelope-proportions) -> vector?
+;;;   sample-rate: number?, a non-negative integer
+;;;   frequency: number?, a non-negative number
+;;;   duration: number?, a non-negative number
+;;;   envelope-proportions: list?, of three numbers (less than 1.0)
+;;; Returns a full asdr-envelope calculated with given parameters.
+(define asdr-envelope
+  (lambda (sample-rate frequency duration envelope-proportions)
+    (let* ([W (* duration frequency)]
+           [N (round (samples-per-wave sample-rate frequency))]
+           [total-samples (* W N)]
+           ; Calculate the relative percentage of time of each period
+           [attack-duration (* total-samples (list-ref envelope-proportions 0))]
+           [decay-duration (* total-samples (list-ref envelope-proportions 1))]
+           [sustain-duration (* total-samples (list-ref envelope-proportions 2))]
+           [release-duration (- total-samples attack-duration decay-duration sustain-duration)]
+           ; Using the envelope function to create
+           [attack-env (envelope attack attack-duration)]
+           [decay-env (envelope decay decay-duration)]
+           [sustain-env (envelope sustain sustain-duration)]
+           [release-env (envelope release release-duration)]
+           [full-envelope (vector-append attack-env decay-env sustain-env release-env)])
+      full-envelope)))
