@@ -146,3 +146,11 @@
   (lambda (total-samples n)
     (let ([step (/ 0.5 total-samples)])
       (- 1.0 (* step n)))))
+
+;;; (sustain total-samples n) -> number?
+;;;   total-samples: integer? non-negative
+;;;   n: integer?, non-negative
+;;; Returns a number that is calculated for sustain period. (sustains at 0.5)
+(define sustain
+  (lambda (total-samples n)
+    0.5))
