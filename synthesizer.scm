@@ -137,3 +137,12 @@
   (lambda (total-samples n)
     (let ([step (/ 1.0 total-samples)])
       (* step n))))
+
+;;; (decay total-samples n) -> number?
+;;;   total-samples: integer? non-negative
+;;;   n: integer?, non-negative
+;;; Returns a number that is calculated for decay period. (decreases linearly from 1.0 to 0.5)
+(define decay
+  (lambda (total-samples n)
+    (let ([step (/ 0.5 total-samples)])
+      (- 1.0 (* step n)))))
